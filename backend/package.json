@@ -11,6 +11,7 @@
     "test:api": "jest --runInBand tests/api",
     "test:smoke": "jest --runInBand tests/smoke",
     "test:harness": "jest --runInBand tests/harness",
+    "test:flaky": "jest --config jest.flaky.config.cjs --runInBand",
     "test:isolation": "node scripts/verify-isolation.cjs",
     "test:coverage": "jest --runInBand --coverage",
     "test:ci": "jest --ci --runInBand --coverage --reporters=default --reporters=jest-junit"
