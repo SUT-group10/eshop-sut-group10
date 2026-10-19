@@ -1,0 +1,258 @@
+diff --git a/backend/package.json b/backend/package.json
+index b9e31a1..01a0ffa 100644
+--- a/backend/package.json
++++ b/backend/package.json
+@@ -11,6 +11,7 @@
+     "test:api": "jest --runInBand tests/api",
+     "test:smoke": "jest --runInBand tests/smoke",
+     "test:harness": "jest --runInBand tests/harness",
++    "test:flaky": "jest --config jest.flaky.config.cjs --runInBand",
+     "test:isolation": "node scripts/verify-isolation.cjs",
+     "test:coverage": "jest --runInBand --coverage",
+     "test:ci": "jest --ci --runInBand --coverage --reporters=default --reporters=jest-junit"
+diff --git a/backend/tests/README.md b/backend/tests/README.md
+index 31f8cbf..c708df2 100644
+--- a/backend/tests/README.md
++++ b/backend/tests/README.md
+@@ -1,5 +1,7 @@
+ # Bộ kiểm thử và hướng dẫn chạy EShop — B-02–B-05
+ 
++Test thí nghiệm E-01 chạy riêng bằng `npm run test:flaky`; xem [cơ chế và hướng dẫn chạy](experiments/README.md). Test này không nằm trong bộ test chính dưới đây.
++
+ ## Phạm vi và lý do chọn
+ 
+ Bộ test gồm ba tầng, với expected result lấy từ [đặc tả nghiệp vụ](../../README.md):
+diff --git a/backend/jest.flaky.config.cjs b/backend/jest.flaky.config.cjs
+new file mode 100644
+index 0000000..a3af93b
+--- /dev/null
++++ b/backend/jest.flaky.config.cjs
+@@ -0,0 +1,6 @@
++// Explicit opt-in: *.flaky.js does not match the normal *.test.js suite.
++module.exports = {
++  ...require('./jest.config.cjs'),
++  testMatch: ['<rootDir>/tests/experiments/**/*.flaky.js'],
++  collectCoverage: false,
++};
+diff --git a/backend/tests/experiments/cart-timing.flaky.js b/backend/tests/experiments/cart-timing.flaky.js
+new file mode 100644
+index 0000000..632c2e9
+--- /dev/null
++++ b/backend/tests/experiments/cart-timing.flaky.js
+@@ -0,0 +1,67 @@
++const { randomInt } = require('node:crypto');
++const { performance } = require('node:perf_hooks');
++const { setTimeout: sleep } = require('node:timers/promises');
++const request = require('supertest');
++const { createHarness } = require('../helpers/harness');
++
++const FAST_DELAY_MS = 60;
++const SLOW_DELAY_MS = 160;
++const READ_WAIT_MS = 100;
++
++test('E-01 cart contains the product after a fixed wait (injected timing flake)', async () => {
++  const mode = process.env.FLAKE_LATENCY_MODE || 'sampled';
++  if (!['sampled', 'fast', 'slow'].includes(mode)) {
++    throw new Error('FLAKE_LATENCY_MODE must be sampled, fast or slow');
++  }
++  // Sample only the delay before the real HTTP request, never its result.
++  const selectedCase = mode === 'sampled'
++    ? (randomInt(2) === 0 ? 'fast' : 'slow') : mode;
++  const delayMs = selectedCase === 'fast' ? FAST_DELAY_MS : SLOW_DELAY_MS;
++  const harness = await createHarness();
++  let pendingAdd;
++  try {
++    const user = await harness.login();
++    const product = await harness.product();
++    const started = performance.now();
++    const elapsed = () => Number((performance.now() - started).toFixed(3));
++    const timeline = {};
++
++    // Start A now. Do not await completion before starting B's fixed wait.
++    // Capture errors immediately so a background rejection cannot go unhandled.
++    pendingAdd = (async () => {
++      await sleep(delayMs);
++      timeline.addSentMs = elapsed();
++      const response = await request(harness.app).post('/api/cart')
++        .auth(user.token, { type: 'bearer' }).send({ ...product, quantity: 1 });
++      timeline.addCompletedMs = elapsed();
++      console.info('E-01 add completed ' + JSON.stringify({ ...timeline, httpStatus: response.status }));
++      return response;
++    })().then(response => ({ response }), error => ({ error }));
++
++    // Intentional defect: elapsed time is used instead of completion of A.
++    await sleep(READ_WAIT_MS);
++    timeline.readSentMs = elapsed();
++    const cart = await request(harness.app).get('/api/cart')
++      .auth(user.token, { type: 'bearer' });
++    timeline.readCompletedMs = elapsed();
++    console.info('E-01 observation ' + JSON.stringify({
++      mode, selectedCase, delayMs,
++      readWaitMs: READ_WAIT_MS, ...timeline, httpStatus: cart.status,
++      cart: cart.body,
++    }));
++    expect(cart.status).toBe(200);
++    expect(cart.body).toHaveLength(1);
++    expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
++  } finally {
++    // Even a failed assertion must drain A before closing its isolated fixture.
++    try {
++      if (pendingAdd) {
++        const outcome = await pendingAdd;
++        expect(outcome.error).toBeUndefined();
++        expect(outcome.response.status).toBe(200);
++      }
++    } finally {
++      await harness.close();
++    }
++  }
++});
+diff --git a/backend/tests/experiments/README.md b/backend/tests/experiments/README.md
+new file mode 100644
+index 0000000..5d18540
+--- /dev/null
++++ b/backend/tests/experiments/README.md
+@@ -0,0 +1,91 @@
++# E-01 — API test có sleep-based flake
++
++Đây là test thí nghiệm được chủ động tạo, không phải lỗi timing đã phát hiện sẵn trong EShop. Chạy bằng JavaScript/Jest và Supertest qua route Express thật. Dùng fixture SQLite trong bộ nhớ; không cần mở server hoặc database riêng.
++
++## Cơ chế và nguyên nhân đã biết
++
++- A đợi **60 hoặc 160 ms**, rồi gửi `POST /api/cart`.
++- Ở chế độ mặc định `sampled`, mỗi lượt chọn ngẫu nhiên một trong hai mức chờ trên, xác suất bằng nhau. Chỉ thời gian chờ được chọn ngẫu nhiên; assertion và kết quả API đều là thật.
++- B bắt đầu chờ cùng lúc với A, đợi cố định 100 ms rồi gửi `GET /api/cart`, kiểm tra đúng một sản phẩm và số lượng 1.
++- Nếu B đọc trước khi A cập nhật giỏ, assertion fail. Nếu A hoàn tất trước khi B đọc, assertion pass. Thời gian thực tế phụ thuộc thêm tải máy/lập lịch; hai mức trễ không bảo đảm tuyệt đối kết quả trên mọi máy.
++
++Root cause nằm ở test: B đọc sau thời gian cố định 100 ms mà không đợi A thêm sản phẩm xong. Độ trễ chỉ được thêm trong file thí nghiệm, không sửa nghiệp vụ SUT hay helper dùng chung.
++
++`E-01 observation` ghi case đã chọn (`selectedCase`), thời gian chờ của A (`delayMs`), thời điểm đọc và giỏ thực tế. `E-01 add completed` ghi thời điểm thao tác thêm hoàn tất. Thời gian là ms tính từ lúc khởi chạy A/B sau khi fixture đã sẵn sàng. Khi assertion fail, cleanup vẫn chờ A kết thúc rồi đóng database.
++
++## Chạy một lượt trong terminal PowerShell
++
++Mở terminal tại thư mục gốc repo, rồi chạy:
++
++```powershell
++cd backend
++npm ci
++npm run test:flaky
++$LASTEXITCODE
++```
++
++Mặc định là `sampled` khi chưa đặt `FLAKE_LATENCY_MODE`. Toàn bộ ví dụ dưới đây dùng **PowerShell**, phù hợp với terminal có dấu nhắc `PS`. Tiếp tục chạy từ thư mục `backend`.
++
++Exit 0 nghĩa là test pass; exit 1 kèm assertion giỏ rỗng là kết quả fail dự kiến của thí nghiệm. Lỗi cài đặt, fixture, HTTP hoặc timeout cần được phân biệt với timing flake; không coi mọi exit 1 là kết quả thí nghiệm hợp lệ.
++
++Không cần chạy `npm ci` mỗi lượt nếu dependency đã được cài đúng lockfile.
++
++## Thử hai điều kiện để hiểu cơ chế
++
++```powershell
++$env:FLAKE_LATENCY_MODE = 'fast'
++npm run test:flaky
++$LASTEXITCODE
++
++$env:FLAKE_LATENCY_MODE = 'slow'
++npm run test:flaky
++$LASTEXITCODE
++
++Remove-Item Env:FLAKE_LATENCY_MODE
++```
++
++`Remove-Item` xóa biến chế độ khỏi phiên terminal để các lượt tiếp theo trở về mặc định `sampled`.
++
++`fast` cho A chờ 60 ms, thường pass; `slow` cho A chờ 160 ms, thường fail. Đây là hai lượt chẩn đoán riêng; `sampled` tự chọn giữa hai case này mỗi lượt.
++
++## Tự quan sát nhiều lượt sampled
++
++```powershell
++$env:FLAKE_LATENCY_MODE = 'sampled'
++
++foreach ($attempt in 1..10) {
++    Write-Host "Attempt ${attempt}"
++    npm run test:flaky
++    $testExit = $LASTEXITCODE
++    Write-Host "Attempt ${attempt}: exit code $testExit"
++}
++
++Remove-Item Env:FLAKE_LATENCY_MODE
++```
++
++Mỗi lệnh mở một tiến trình Jest mới, không retry bên trong lượt. Không bảo đảm đúng 5 pass/5 fail; đối chiếu `selectedCase`, `delayMs` và timing trong log để hiểu từng kết quả.
++
++Để xuất report Jest của một lượt:
++
++```powershell
++New-Item -ItemType Directory -Force 'test-results/flaky' | Out-Null
++npm run test:flaky -- --json --outputFile=test-results/flaky/results.json
++$LASTEXITCODE
++```
++
++## Cô lập và CI
++
++- File kết thúc bằng `.flaky.js`, chỉ cấu hình `jest.flaky.config.cjs` chọn nó. `npm test`, các test theo tầng và `test:ci` tiếp tục chỉ chọn `.test.js` như trước.
++- Workflow `Flaky experiment (manual only)` chỉ nhận `workflow_dispatch`, không tự chạy khi push/PR. Mỗi dispatch chạy một lượt sampled và upload report/log kể cả assertion fail, giữ exit code thật. Không thêm workflow này vào required checks của pipeline chính.
++- File workflow đang có trong mã nguồn không chứng minh đã chạy CI. Sau khi nhóm đưa workflow lên remote/default branch, mới có thể chạy qua GitHub Actions.
++
++Bằng chứng kiểm chứng local của E-01 được lưu tại `docs/evidence/E-01/`. Checklist E-01 chỉ được chốt khi có commit và các điều kiện nghiệm thu của nhóm; việc có file/test local chưa đồng nghĩa đã hoàn thành toàn bộ task.
++
++## Kết quả kiểm chứng local ngày 19/10/2026
++
++[Raw log](../../../docs/evidence/E-01/local-verification.log) của phiên bản 60/160 ms ghi 10 lượt `sampled` độc lập: **4 pass, 6 fail**, không retry. Cả 4 lượt chọn `fast` (60 ms) đều pass; cả 6 lượt chọn `slow` (160 ms) đều fail vì giỏ còn rỗng khi đọc. Hai lượt chẩn đoán riêng cũng cho `fast` pass/exit 0 và `slow` fail/exit 1.
++
++Lint/build pass; kiểm tra isolation ba seed vẫn có 39 test, 29 pass/10 lỗi SUT đã biết, không handle mở; hash database gốc không đổi. Bộ test mặc định không chọn file `.flaky.js`.
++
++Đây là kiểm chứng local cho E-01, chưa phải kết quả CI. Mã được kiểm chứng là thay đổi chưa commit trên base `b9c76a6`; [source.patch](../../../docs/evidence/E-01/source.patch) giữ snapshot phần thay đổi để tái hiện. Chưa có peer review được ghi nhận trong lần kiểm chứng này.
++
+diff --git a/.github/workflows/flaky-experiment.yml b/.github/workflows/flaky-experiment.yml
+new file mode 100644
+index 0000000..d53fd8c
+--- /dev/null
++++ b/.github/workflows/flaky-experiment.yml
+@@ -0,0 +1,46 @@
++name: Flaky experiment (manual only)
++
++on:
++  workflow_dispatch:
++
++permissions:
++  contents: read
++
++jobs:
++  cart-timing:
++    runs-on: ubuntu-22.04
++    timeout-minutes: 10
++    defaults:
++      run:
++        working-directory: backend
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-node@v4
++        with:
++          node-version: 24.14.0
++          cache: npm
++          cache-dependency-path: backend/package-lock.json
++      - name: Install dependencies
++        run: npm ci
++        env:
++          npm_config_build_from_source: 'true'
++      - name: Record source and runtime
++        run: |
++          git rev-parse HEAD
++          node --version
++          npm --version
++      - name: Run one sampled attempt (failure is an experimental result)
++        env:
++          FLAKE_LATENCY_MODE: sampled
++        run: |
++          mkdir -p test-results/flaky
++          set -o pipefail
++          npm run test:flaky -- --json --outputFile=test-results/flaky/results.json 2>&1 | tee test-results/flaky/console.log
++      - name: Upload attempt results, including failures
++        if: ${{ !cancelled() }}
++        uses: actions/upload-artifact@v4
++        with:
++          name: flaky-${{ github.run_id }}-${{ github.run_attempt }}
++          path: backend/test-results/flaky/
++          if-no-files-found: warn
++          retention-days: 14
