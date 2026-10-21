@@ -53,8 +53,8 @@ Phần test cần đủ để minh họa **kỹ nghệ harness và CI/CD**, khô
 
 | Mã Task | Checklist | Người thực hiện | Bằng chứng hoàn thành |
 |:---:|---|---|---|
-| **E-01** | [ ] Tạo một flaky test do timing/sleep có nguyên nhân đã biết; đặt trên nhánh hoặc workflow thí nghiệm riêng | Vỹ | Commit tạo flake và mô tả root cause |
-| **E-02** | [ ] Định nghĩa trước cách chạy, điều kiện thành công/thất bại và dữ liệu cần thu; tránh sửa test giữa các lần đo | Vỹ | Protocol thí nghiệm |
+| **E-01** | [x] Tạo một flaky test do timing/sleep có nguyên nhân đã biết; đặt trên nhánh hoặc workflow thí nghiệm riêng | Vỹ | Commit tạo flake và mô tả root cause |
+| **E-02** | [x] Định nghĩa trước cách chạy, điều kiện thành công/thất bại và dữ liệu cần thu; tránh sửa test giữa các lần đo | Vỹ | Protocol thí nghiệm |
 | **E-03** | [ ] Chạy **ít nhất 10 lần độc lập**, lưu commit SHA, thời gian, kết quả, run URL, raw log và retry history | Vỹ; Dương hỗ trợ CI | Bảng 10 run kèm nguồn gốc từng run |
 | **E-04** | [ ] Phân tích thủ công **trước khi xem kết quả AI**; ghi thời gian, giả thuyết, dòng log hỗ trợ, bước kiểm tra | Vượng | Bản manual triage có dấu thời gian |
 | **E-05** | [ ] Chuẩn hóa dữ liệu đưa cho ChatGPT: cùng log và lịch sử chạy; loại bí mật/thông tin cá nhân | Vỹ | Input và prompt được lưu nguyên bản |
