@@ -1,0 +1,2 @@
+# Keep normalized packet checksums stable across platforms.
+* -text
