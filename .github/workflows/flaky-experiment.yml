@@ -1,0 +1,46 @@
+name: Flaky experiment (manual only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cart-timing:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.14.0
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+        env:
+          npm_config_build_from_source: 'true'
+      - name: Record source and runtime
+        run: |
+          git rev-parse HEAD
+          node --version
+          npm --version
+      - name: Run one sampled attempt (failure is an experimental result)
+        env:
+          FLAKE_LATENCY_MODE: sampled
+        run: |
+          mkdir -p test-results/flaky
+          set -o pipefail
+          npm run test:flaky -- --json --outputFile=test-results/flaky/results.json 2>&1 | tee test-results/flaky/console.log
+      - name: Upload attempt results, including failures
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-${{ github.run_id }}-${{ github.run_attempt }}
+          path: backend/test-results/flaky/
+          if-no-files-found: warn
+          retention-days: 14
