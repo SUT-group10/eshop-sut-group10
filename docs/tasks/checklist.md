@@ -55,7 +55,7 @@ Phần test cần đủ để minh họa **kỹ nghệ harness và CI/CD**, khô
 |:---:|---|---|---|
 | **E-01** | [x] Tạo một flaky test do timing/sleep có nguyên nhân đã biết; đặt trên nhánh hoặc workflow thí nghiệm riêng | Vỹ | Commit tạo flake và mô tả root cause |
 | **E-02** | [x] Định nghĩa trước cách chạy, điều kiện thành công/thất bại và dữ liệu cần thu; tránh sửa test giữa các lần đo | Vỹ | Protocol thí nghiệm |
-| **E-03** | [ ] Chạy **ít nhất 10 lần độc lập**, lưu commit SHA, thời gian, kết quả, run URL, raw log và retry history | Vỹ; Dương hỗ trợ CI | Bảng 10 run kèm nguồn gốc từng run |
+| **E-03** | [x] Chạy **ít nhất 10 lần độc lập**, lưu commit SHA, thời gian, kết quả, run URL, raw log và retry history | Vỹ; Dương hỗ trợ CI | [Bảng 10 run](../evidence/E-03/20261021-b252db4-01/README.md) kèm nguồn gốc từng run |
 | **E-04** | [ ] Phân tích thủ công **trước khi xem kết quả AI**; ghi thời gian, giả thuyết, dòng log hỗ trợ, bước kiểm tra | Vượng | Bản manual triage có dấu thời gian |
 | **E-05** | [ ] Chuẩn hóa dữ liệu đưa cho ChatGPT: cùng log và lịch sử chạy; loại bí mật/thông tin cá nhân | Vỹ | Input và prompt được lưu nguyên bản |
 | **E-06**| [ ] Tìm kiếm và đề xuất 1 prompt patterns / SKILLS phân tích log CI từ Github repo, diễn đàn DevOps hoặc bài báo học thuật để chọn ra kỹ thuật tối ưu nhất (ví dụ: Chain-of-Thought, Few-Shot Prompting) | Vỹ, Vượng, Dương / prompt/SKILLS| Báo cáo `AI_vs_Human_Triage` |.
