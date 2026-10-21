@@ -1,0 +1,2 @@
+# Preserve downloaded evidence bytes so SHA256 checks remain valid after checkout.
+* -text

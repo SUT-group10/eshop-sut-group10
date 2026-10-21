@@ -1,0 +1,113 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 119311840524,
+      "run_id": 39626153807,
+      "workflow_name": "Flaky experiment (manual only)",
+      "head_branch": "test/issue-5-flaky-experiment",
+      "run_url": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/actions/runs/39626153807",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOU4M4OM8AAAAbx4o1DA",
+      "head_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "url": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/actions/jobs/119311840524",
+      "html_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39626153807/job/119311840524",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-21T15:29:25Z",
+      "started_at": "2026-10-21T15:29:28Z",
+      "completed_at": "2026-10-21T15:30:53Z",
+      "name": "cart-timing",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-21T15:29:29Z",
+          "completed_at": "2026-10-21T15:29:30Z"
+        },
+        {
+          "name": "Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-21T15:29:30Z",
+          "completed_at": "2026-10-21T15:29:31Z"
+        },
+        {
+          "name": "Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-21T15:29:31Z",
+          "completed_at": "2026-10-21T15:29:37Z"
+        },
+        {
+          "name": "Install dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-21T15:29:37Z",
+          "completed_at": "2026-10-21T15:30:48Z"
+        },
+        {
+          "name": "Record source and runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-21T15:30:48Z",
+          "completed_at": "2026-10-21T15:30:48Z"
+        },
+        {
+          "name": "Run one sampled attempt (failure is an experimental result)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-21T15:30:48Z",
+          "completed_at": "2026-10-21T15:30:49Z"
+        },
+        {
+          "name": "Upload attempt results, including failures",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-21T15:30:49Z",
+          "completed_at": "2026-10-21T15:30:50Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-21T15:30:50Z",
+          "completed_at": "2026-10-21T15:30:50Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-21T15:30:50Z",
+          "completed_at": "2026-10-21T15:30:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-21T15:30:51Z",
+          "completed_at": "2026-10-21T15:30:51Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/check-runs/119311840524",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000000012,
+      "runner_name": "GitHub Actions 1000000012",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
