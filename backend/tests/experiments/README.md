@@ -2,6 +2,8 @@
 
 Đây là test thí nghiệm được chủ động tạo, không phải lỗi timing đã phát hiện sẵn trong EShop. Chạy bằng JavaScript/Jest và Supertest qua route Express thật. Dùng fixture SQLite trong bộ nhớ; không cần mở server hoặc database riêng.
 
+Khi thu dữ liệu chính thức, dùng [protocol E-02](../../../docs/experiments/flaky-test-protocol.md). Các lệnh và kết quả bên dưới phục vụ hướng dẫn/kiểm chứng E-01, không thay cho đợt đo được chốt trước theo protocol.
+
 ## Cơ chế và nguyên nhân đã biết
 
 - A đợi **60 hoặc 160 ms**, rồi gửi `POST /api/cart`.
