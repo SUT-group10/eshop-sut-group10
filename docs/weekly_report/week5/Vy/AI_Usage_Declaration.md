@@ -6,7 +6,7 @@
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
 - **Thời gian:** 19–21/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
@@ -17,7 +17,7 @@
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01 và E-02 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02 và E-03 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
 
@@ -37,6 +37,14 @@
 
 **Kết quả:** Protocol và hướng dẫn đã có trong repo. Lượt chạy do sinh viên thao tác và rehearsal sau nâng action do AI chạy đều chọn fast và pass; log/report tải được. Rehearsal mới hết cảnh báo Node 20; workflow nâng cấp đã merge vào main qua PR #16. Hai lượt này giữ riêng với đợt 10 lượt E-03.
 
+### 3.3. E-03 — Chạy và thu dữ liệu thí nghiệm
+
+**Phần AI hỗ trợ:** Làm rõ yêu cầu, thực hiện 10 lượt GitHub Actions theo protocol E-02; thu log, artefact, metadata và lập bảng kết quả.
+
+**Human Oversight:** Ban đầu yêu cầu giải thích công việc và checklist nghiệm thu rồi mới triển khai. Khi log báo thành công nhưng GitHub còn hiển thị đang chạy, tiếp tục hỏi cách xử lý và yêu cầu hoàn thiện lượt 09–10. Sau khi trạng thái lượt 08 được cập nhật, yêu cầu kiểm tra lại và sửa báo cáo theo kết quả cuối.
+
+**Kết quả:** Đủ 10 lượt trên cùng SHA và môi trường: 5 PASS, 5 FAIL do timing, không retry test. Bằng chứng gốc, bảng kết quả và checksum được lưu trong repo.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
@@ -47,6 +55,8 @@
 - **Rehearsal:** [lượt chạy do sinh viên thao tác](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39612964275), [lượt AI chạy sau nâng action](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39615233808).
 - **Tích hợp workflow:** [PR #13](https://github.com/SUT-group10/eshop-sut-group10/pull/13), [PR #16](https://github.com/SUT-group10/eshop-sut-group10/pull/16).
 
+- **Thí nghiệm E-03:** [bảng 10 lượt và dữ liệu gốc](../../../evidence/E-03/20261021-b252db4-01/README.md), [metadata](../../../evidence/E-03/20261021-b252db4-01/batch.json), [checksum](../../../evidence/E-03/20261021-b252db4-01/SHA256SUMS).
+
 ## 5. Cam kết
 
 Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiểm tra, yêu cầu chỉnh sửa; phân biệt kết quả local với CI/review. Người khai báo chịu trách nhiệm kiểm tra nội dung trước khi nộp.
@@ -56,3 +66,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 *Ngày lập:* 19/10/2026.
 
 *Cập nhật E-02:* 21/10/2026.
+
+*Cập nhật E-03:* 21/10/2026.

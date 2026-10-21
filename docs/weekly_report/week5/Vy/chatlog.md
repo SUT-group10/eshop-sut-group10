@@ -7,7 +7,7 @@
 - **Công cụ:** ChatGPT / Codex
 - **Thời gian:** 19–21/10/2026.
 - **Model:** Chưa xác định từ thông tin phiên.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03.
 - **Khai báo và Human Oversight:** [AI_Usage_Declaration.md](AI_Usage_Declaration.md).
 
 Các prompt và trích đoạn phản hồi dưới đây được chọn từ session thực tế, không phải export toàn bộ session. Đoạn nguyên văn giữ cách diễn đạt gốc; phần tổng hợp được ghi riêng. Thao tác viết code, sửa file và chạy kiểm chứng do AI thực hiện được phân biệt với việc đọc, đặt câu hỏi và yêu cầu chỉnh sửa.
@@ -631,3 +631,75 @@ Prompt được trích từ yêu cầu đối chiếu hai dòng checklist và đ
 - [Rehearsal do sinh viên chạy](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39612964275).
 - [Rehearsal sau nâng action do AI chạy](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39615233808).
 - [PR #13 đăng ký workflow](https://github.com/SUT-group10/eshop-sut-group10/pull/13); [PR #16 nâng action trên main](https://github.com/SUT-group10/eshop-sut-group10/pull/16).
+
+## Phiên chat 3: Chạy và thu dữ liệu thí nghiệm E-03
+
+- **Thời gian:** 21/10/2026.
+- **Phạm vi:** Làm rõ yêu cầu, thực hiện 10 lượt chạy độc lập, kiểm tra trạng thái GitHub và hoàn thiện bằng chứng.
+- Các phản hồi AI trong phần E-03 là bản tóm tắt theo nội dung đã duyệt, không phải trích nguyên văn.
+
+<a id="e03-requirements"></a>
+
+### 1. Làm rõ yêu cầu và nghiệm thu E-03
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+oke, vậy đọc tasks e03 và giải thích yêu cầu cho tôi, những gì cần làm và checklist nghiệm thu
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Giải thích E-03 cần chạy ít nhất 10 lượt độc lập theo protocol E-02, giữ cùng phiên bản mã và điều kiện chạy. Mỗi lượt cần lưu SHA, thời gian, kết quả, run URL, log gốc và lịch sử retry; không dùng rehearsal thay cho lượt đo.
+
+<a id="e03-execution"></a>
+
+### 2. Triển khai đợt đo
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+implement theo plan này
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Thực hiện các lượt chạy trên GitHub Actions ở SHA `b252db4`, thu artefact, log và metadata. Giữ nguyên test, assertion và môi trường; không retry test hoặc chạy thay mẫu để đạt tỷ lệ pass/fail mong muốn.
+
+<a id="e03-status"></a>
+
+### 3. Kiểm tra trạng thái GitHub chưa đồng bộ
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+nó đã có kết quả, success ở log rồi, nhưng trên giao diện github thì nó vẫn in progress, tôi nghĩ lỗi do github, thế giờ nên cancel không hay vẫn đợi, nếu đợi thì có thể mất rất lâu
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Đối chiếu kết quả test, trạng thái job và trạng thái workflow của lượt 08. Job/test đã thành công và có artefact trong khi trạng thái workflow vẫn hiển thị đang chạy. Lưu bằng chứng hiện có, không cancel hoặc rerun lượt đo.
+
+<a id="e03-completion"></a>
+
+### 4. Hoàn thiện hai lượt còn lại
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+vậy tiếp tục với run 9 và 10 để hoàn thiện.
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Chạy tiếp lượt 09 và 10, hoàn tất bộ 10 lượt độc lập. Kết quả gồm 5 lượt fast PASS và 5 lượt slow FAIL do timing; mỗi lượt thực thi Jest một lần, không retry.
+
+#### Ghi chú tổng hợp sau đợt đo (không phải trích nguyên văn):
+
+Sau khi GitHub cập nhật lượt 08 thành `completed / success`, tiếp tục kiểm tra và cập nhật báo cáo theo trạng thái cuối. Lượt 08 được ghi PASS bình thường; bỏ ghi chú ngoại lệ khỏi báo cáo kết quả, bổ sung log đầy đủ và cập nhật checksum. Log test và kết quả gốc được giữ nguyên.
+
+### Sản phẩm và minh chứng E-03
+
+- [Bảng 10 lượt chạy và dữ liệu gốc](../../../evidence/E-03/20261021-b252db4-01/README.md).
+- [Metadata và kết quả từng lượt](../../../evidence/E-03/20261021-b252db4-01/batch.json).
+- [Checksum các file bằng chứng](../../../evidence/E-03/20261021-b252db4-01/SHA256SUMS).
