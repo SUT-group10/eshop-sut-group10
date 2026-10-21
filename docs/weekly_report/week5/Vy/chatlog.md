@@ -7,7 +7,7 @@
 - **Công cụ:** ChatGPT / Codex
 - **Thời gian:** 19–21/10/2026.
 - **Model:** Chưa xác định từ thông tin phiên.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05.
 - **Khai báo và Human Oversight:** [AI_Usage_Declaration.md](AI_Usage_Declaration.md).
 
 Các prompt và trích đoạn phản hồi dưới đây được chọn từ session thực tế, không phải export toàn bộ session. Đoạn nguyên văn giữ cách diễn đạt gốc; phần tổng hợp được ghi riêng. Thao tác viết code, sửa file và chạy kiểm chứng do AI thực hiện được phân biệt với việc đọc, đặt câu hỏi và yêu cầu chỉnh sửa.
@@ -703,3 +703,28 @@ Sau khi GitHub cập nhật lượt 08 thành `completed / success`, tiếp tụ
 - [Bảng 10 lượt chạy và dữ liệu gốc](../../../evidence/E-03/20261021-b252db4-01/README.md).
 - [Metadata và kết quả từng lượt](../../../evidence/E-03/20261021-b252db4-01/batch.json).
 - [Checksum các file bằng chứng](../../../evidence/E-03/20261021-b252db4-01/SHA256SUMS).
+
+## Phiên chat 4: Chuẩn hóa đầu vào phân tích E-05
+
+- **Thời gian:** 21/10/2026.
+- **Phạm vi:** Chuẩn hóa log của 10 lượt E-03 để chuẩn bị dữ liệu chung cho Vượng và GPT.
+
+<a id="e05-normalization"></a>
+
+### 1. Chuẩn hóa log và chuẩn bị bàn giao
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+làm e05, chuẩn hóa lại log của 10 tests, để chuẩn bị cho e06 và e04 của vượng, che đi flaky test
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Tạo bộ dữ liệu riêng từ 10 lượt E-03, che tên test, nhãn và kết luận tiết lộ nguyên nhân. Giữ thời gian thao tác thực tế, HTTP status, assertion, kết quả và retry. Đóng gói log, JSON, lịch sử chạy và prompt chung thành ZIP cho Vượng và GPT; giữ nguyên bằng chứng gốc, kiểm tra checksum và bổ sung hướng dẫn bàn giao.
+
+### Sản phẩm và minh chứng E-05
+
+- [Bộ dữ liệu gửi cho Vượng và GPT](../../../evidence/E-05/participant-input.zip).
+- [Hướng dẫn chuẩn bị và bàn giao](../../../evidence/E-05/README.md).
+- [Script tái tạo bộ dữ liệu](../../../experiments/prepare-triage-input.py).

@@ -6,7 +6,7 @@
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
 - **Thời gian:** 19–21/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
@@ -17,7 +17,7 @@
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02 và E-03 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03 và E-05 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
 
@@ -45,6 +45,14 @@
 
 **Kết quả:** Đủ 10 lượt trên cùng SHA và môi trường: 5 PASS, 5 FAIL do timing, không retry test. Bằng chứng gốc, bảng kết quả và checksum được lưu trong repo.
 
+### 3.4. E-05 — Chuẩn hóa đầu vào phân tích
+
+**Phần AI hỗ trợ:** Chuẩn hóa dữ liệu của 10 lượt E-03, viết script tái tạo, prompt chung và hướng dẫn bàn giao.
+
+**Human Oversight:** Yêu cầu che thông tin làm lộ flake để chuẩn bị phân tích người–AI. Sau đó kiểm tra việc giữ bản gốc và làm rõ chỉ gửi ZIP, phân biệt README trong gói với hướng dẫn dành cho người bàn giao.
+
+**Kết quả:** Có bộ đầu vào chung cho Vượng và GPT; bằng chứng E-03 giữ nguyên. Đã kiểm tra nội dung ZIP và checksum.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
@@ -57,6 +65,8 @@
 
 - **Thí nghiệm E-03:** [bảng 10 lượt và dữ liệu gốc](../../../evidence/E-03/20261021-b252db4-01/README.md), [metadata](../../../evidence/E-03/20261021-b252db4-01/batch.json), [checksum](../../../evidence/E-03/20261021-b252db4-01/SHA256SUMS).
 
+- **Đầu vào E-05:** [ZIP chuẩn hóa](../../../evidence/E-05/participant-input.zip), [hướng dẫn bàn giao](../../../evidence/E-05/README.md), [script tái tạo](../../../experiments/prepare-triage-input.py).
+
 ## 5. Cam kết
 
 Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiểm tra, yêu cầu chỉnh sửa; phân biệt kết quả local với CI/review. Người khai báo chịu trách nhiệm kiểm tra nội dung trước khi nộp.
@@ -68,3 +78,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 *Cập nhật E-02:* 21/10/2026.
 
 *Cập nhật E-03:* 21/10/2026.
+
+*Cập nhật E-05:* 21/10/2026.
