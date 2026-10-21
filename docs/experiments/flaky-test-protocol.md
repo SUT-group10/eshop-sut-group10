@@ -41,7 +41,7 @@ Chốt cách chạy và thu dữ liệu trước E-03 để quan sát một test
 
 Trước đợt đo:
 
-1. Đảm bảo workflow có thể dispatch trên repo, tài khoản có quyền chạy và tải artefact; ref được chọn chứa đầy đủ harness và test E-01. Default branch mục tiêu theo quyết định nhóm là `develop`; việc đổi cấu hình repo cần tài khoản admin thực hiện. Với giao diện GitHub, workflow cần hiện diện trên default branch để có nút **Run workflow**; xem [GitHub Docs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow). Kiểm tra default branch thực tế trước đợt đo; không coi đổi tài liệu là đã đổi cấu hình GitHub.
+1. Đảm bảo workflow có thể dispatch trên repo, tài khoản có quyền chạy và tải artefact; ref được chọn chứa đầy đủ harness và test E-01. Giữ default branch là `main`; chỉ tích hợp file workflow vào `main`, phần thí nghiệm tiếp tục trên branch riêng. Với giao diện GitHub, workflow cần hiện diện trên default branch để có nút **Run workflow**; xem [GitHub Docs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow). Kiểm tra default branch thực tế trước đợt đo.
 2. Chọn ref thực tế chứa phiên bản đo; hiện công việc nằm trên `test/issue-5-flaky-experiment`. Nếu quy trình đưa workflow vào repo tạo SHA mới, chốt SHA mới trước lượt đầu, không dùng SHA cũ để ghi thay.
 3. Ghi mã đợt, phiên bản protocol, SHA, ref, người thực hiện, thời điểm UTC, môi trường dự kiến và danh sách lượt 01–10. Xác minh lệnh/report bằng kiểm tra cấu hình; nếu cần chạy thử thì ghi riêng là rehearsal trước đợt đo.
 4. Chuẩn bị nơi lưu `docs/evidence/E-03/<batch-id>/` và bảng dữ liệu ở mục 6. Thư mục sẽ được tạo khi làm E-03; tài liệu này không chứa kết quả giả hoặc hàng run điền sẵn.
@@ -53,18 +53,20 @@ Các image GitHub-hosted có thể được cập nhật. Nếu image version ho
 ### 4.1. Mở workflow và chạy thử một lượt trước đợt chính thức
 
 1. Đăng nhập GitHub bằng tài khoản có quyền write vào repo, mở [trang Actions của EShop](https://github.com/SUT-group10/eshop-sut-group10/actions).
-2. Ở thanh bên trái, tìm **Flaky experiment (manual only)**. Nếu chỉ thấy **Backend CI**, dừng tại đây: chọn branch trong tab Code không làm workflow mới xuất hiện trong Actions. Cần đưa riêng file `.github/workflows/flaky-experiment.yml` vào default branch thực tế qua PR/review; hướng tích hợp mới là `develop`. Có thể dùng PR nhỏ chỉ đăng ký workflow, không cần đợi hoàn thành toàn bộ Issue #5. Đây là bước chuẩn bị; việc merge cần được nhóm cho phép riêng.
+2. Ở thanh bên trái, tìm **Flaky experiment (manual only)**. Nếu chỉ thấy **Backend CI**, dừng tại đây: chọn branch trong tab Code không làm workflow mới xuất hiện trong Actions. Cần đưa riêng file `.github/workflows/flaky-experiment.yml` vào default branch `main` qua PR/review. Có thể dùng PR nhỏ chỉ đăng ký workflow, không cần đợi hoàn thành toàn bộ Issue #5. Đây là bước chuẩn bị; việc merge cần được nhóm cho phép riêng.
 3. Khi workflow đã xuất hiện, bấm **Flaky experiment (manual only)** → **Run workflow** ở phía trên danh sách run. Nếu đã thấy workflow nhưng không có nút, kiểm tra file trên default branch có `workflow_dispatch` và tài khoản có quyền write; không chuyển sang chạy Backend CI thay thế.
-4. Trong **Use workflow from / Branch**, chọn `test/issue-5-flaky-experiment` hoặc ref đo đã chốt, rồi bấm nút **Run workflow** để xác nhận. File hiện không yêu cầu nhập mode: job tự dùng `sampled`. Không chọn branch chỉ mới có file workflow mà chưa có harness/test; kể cả `develop` cũng phải có đủ các dependency này trước khi chọn để chạy thí nghiệm.
+4. Trong **Use workflow from / Branch**, chọn `test/issue-5-flaky-experiment` hoặc ref đo đã chốt, rồi bấm nút **Run workflow** để xác nhận. File hiện không yêu cầu nhập mode: job tự dùng `sampled`. Không chọn `main` khi branch đó chỉ có workflow mà chưa có harness/test thí nghiệm.
 5. Chờ run mới xuất hiện, mở run đó → job **cart-timing**. Mở bước **Record source and runtime**, đối chiếu SHA và xem Node/npm. Mở **Set up job** để lấy runner image/version.
 6. Mở bước **Run one sampled attempt (failure is an experimental result)**. Tìm `E-01 observation` để xem `selectedCase`, `delayMs`, thời điểm đọc và giỏ; tìm `E-01 add completed` để xem thời điểm thêm hoàn tất và HTTP status. Đọc PASS/FAIL của Jest riêng, phân loại theo mục 5.
 7. Quay về trang tổng quan của chính run đó, kéo xuống **Artifacts**, tải `flaky-<run_id>-<run_attempt>`. Giải nén và tìm `console.log`, `results.json`; không chỉ lưu ảnh dấu xanh/đỏ. Trong job, dùng menu tải log (**Download log archive**) để giữ cả log setup/runtime; tên/vị trí menu có thể thay đổi theo giao diện GitHub.
 8. Lưu URL của run từ thanh địa chỉ, thời gian và nguồn metadata theo mục 6. Thử ghi một bản ghi rehearsal để kiểm tra có lấy được đủ dữ liệu. Nếu thiếu log/report hoặc test không khởi chạy, xử lý trước đợt chính thức.
 9. Ghi rõ lượt này là **rehearsal**, không tính vào 10 lượt E-03. Chạy thử đạt khi đúng test/mode/SHA, log/report tải và đối chiếu được; test có thể PASS hoặc TIMING_FAIL. Không dùng màu job làm tiêu chí duy nhất.
 
-Đăng ký workflow trên default branch (mục tiêu `develop`) và chọn branch thực thi là hai thao tác khác nhau. Các bước giao diện và quyền truy cập dựa trên [GitHub Docs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
+Đăng ký workflow trên default branch `main` và chọn branch thực thi là hai thao tác khác nhau. Các bước giao diện và quyền truy cập dựa trên [GitHub Docs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
 
 Rehearsal ngày 21/10/2026: [run 39615233808](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39615233808), branch `test/issue-5-flaky-experiment`, SHA `068d38559704f1262101266589c0d1f29eee1193`. Ba action `@v6` chạy được, log không còn cảnh báo Node.js 20; `sampled` chọn fast 60 ms, test pass một lần và artefact `flaky-39615233808-1` có đủ `console.log`/`results.json`. Lượt này chỉ kiểm tra cách chạy và thu file, không tính vào đợt 10 lượt E-03.
+
+[PR #16](https://github.com/SUT-group10/eshop-sut-group10/pull/16) đã tích hợp riêng phần nâng ba action vào `main`. Giữ `main` làm default branch; khi dispatch vẫn chọn branch thí nghiệm chứa đầy đủ harness/test.
 
 ### 4.2. Thu 10 lượt chính thức sau khi chốt điều kiện
 
