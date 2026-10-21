@@ -5,19 +5,19 @@
 - **Họ và tên sinh viên:** Trần Quốc Vỹ
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
-- **Thời gian:** 19/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng local E-01.
+- **Thời gian:** 19–21/10/2026.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
 - [ ] Không sử dụng AI.
-- [x] Có sử dụng AI để làm rõ yêu cầu, viết test, chạy kiểm chứng và soạn hướng dẫn.
+- [x] Có sử dụng AI để làm rõ yêu cầu, viết test/protocol, chạy kiểm chứng và soạn hướng dẫn.
 
 ## 2. Công cụ AI đã sử dụng
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01 và E-02 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
 
@@ -29,11 +29,23 @@
 
 **Kết quả:** AI chạy lại 10 lượt sampled độc lập: 4 pass, 6 fail; các lượt fast pass và slow fail khớp log timing. Lint/build và kiểm tra isolation đạt; bộ test chính giữ baseline 39 test, 29 pass/10 lỗi SUT đã biết, không handle mở và database gốc không đổi.
 
+### 3.2. E-02 — Protocol và rehearsal thí nghiệm
+
+**Phần AI hỗ trợ:** Đối chiếu đề và checklist, viết protocol về cách chạy, phân loại kết quả và dữ liệu cần lưu; bổ sung hướng dẫn GitHub từng bước. Kiểm tra artefact, nâng ba action lên @v6 và chạy lại rehearsal.
+
+**Human Oversight:** Ban đầu làm rõ mục tiêu và cách nghiệm thu E-02. Khi tài liệu dài, tiếp tục hỏi cách kiểm chứng bằng job thật và yêu cầu hướng dẫn cụ thể. Sau khi chạy thử, gửi ảnh để kiểm tra branch, rồi cung cấp artefact của lượt chạy đúng và hỏi cảnh báo Node 20. Yêu cầu nâng action, cân nhắc chuyển sang develop, sau đó đổi quyết định giữ main và chỉ merge YAML. Cuối cùng yêu cầu đối chiếu tiêu chí và đánh dấu hoàn thành.
+
+**Kết quả:** Protocol và hướng dẫn đã có trong repo. Lượt chạy do sinh viên thao tác và rehearsal sau nâng action do AI chạy đều chọn fast và pass; log/report tải được. Rehearsal mới hết cảnh báo Node 20; workflow nâng cấp đã merge vào main qua PR #16. Hai lượt này giữ riêng với đợt 10 lượt E-03.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
 - **Sản phẩm:** [test](../../../../backend/tests/experiments/cart-timing.flaky.js), [cấu hình Jest](../../../../backend/jest.flaky.config.cjs), [workflow](../../../../.github/workflows/flaky-experiment.yml), [hướng dẫn](../../../../backend/tests/experiments/README.md).
 - **Bằng chứng local:** [raw log](../../../evidence/E-01/local-verification.log), [snapshot mã](../../../evidence/E-01/source.patch).
+
+- **Protocol E-02:** [cách chạy và thu dữ liệu](../../../experiments/flaky-test-protocol.md).
+- **Rehearsal:** [lượt chạy do sinh viên thao tác](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39612964275), [lượt AI chạy sau nâng action](https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39615233808).
+- **Tích hợp workflow:** [PR #13](https://github.com/SUT-group10/eshop-sut-group10/pull/13), [PR #16](https://github.com/SUT-group10/eshop-sut-group10/pull/16).
 
 ## 5. Cam kết
 
@@ -42,3 +54,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 **Người khai báo:** Trần Quốc Vỹ
 
 *Ngày lập:* 19/10/2026.
+
+*Cập nhật E-02:* 21/10/2026.
