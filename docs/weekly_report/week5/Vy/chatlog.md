@@ -5,9 +5,9 @@
 - **Sinh viên:** Trần Quốc Vỹ
 - **MSSV:** 23120410
 - **Công cụ:** ChatGPT / Codex
-- **Thời gian:** 19–21/10/2026.
-- **Model:** Chưa xác định từ thông tin phiên.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05.
+- **Thời gian:** 19–22/10/2026.
+- **Model:** Các phiên trước chưa xác định; lượt AI triage được bàn giao là GPT-6.1 Sol theo xác nhận.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08.
 - **Khai báo và Human Oversight:** [AI_Usage_Declaration.md](AI_Usage_Declaration.md).
 
 Các prompt và trích đoạn phản hồi dưới đây được chọn từ session thực tế, không phải export toàn bộ session. Đoạn nguyên văn giữ cách diễn đạt gốc; phần tổng hợp được ghi riêng. Thao tác viết code, sửa file và chạy kiểm chứng do AI thực hiện được phân biệt với việc đọc, đặt câu hỏi và yêu cầu chỉnh sửa.
@@ -728,3 +728,53 @@ Tạo bộ dữ liệu riêng từ 10 lượt E-03, che tên test, nhãn và k�
 - [Bộ dữ liệu gửi cho Vượng và GPT](../../../evidence/E-05/participant-input.zip).
 - [Hướng dẫn chuẩn bị và bàn giao](../../../evidence/E-05/README.md).
 - [Script tái tạo bộ dữ liệu](../../../experiments/prepare-triage-input.py).
+
+## Phiên chat 5: E-06–E-08 — Skill phân tích log và so sánh người–AI
+
+- **Thời gian:** 22/10/2026.
+- **Phạm vi:** Tìm và điều chỉnh skill, lưu kết quả AI được bàn giao và đối chiếu với phân tích của Vượng. Không ghi thành đã thử ba phương pháp theo E-07.
+- Các phản hồi AI dưới đây là bản tóm tắt theo nội dung đã duyệt, không phải trích nguyên văn.
+
+<a id="e06-e08-method"></a>
+
+### 1. Tìm nguồn skill
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+tôi search thì khó tìm ra skill phù hợp với E06 quá, bạn tìm giúp tôi được không
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Tìm và đối chiếu ba skill công khai, đề xuất `systematic-debugging` làm nguồn phương pháp.
+
+### 2. Điều chỉnh phạm vi phân tích
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+oke, vậy chuẩn hóa skill đó giúp tôi, tôi check github thì thấy đó là 1 folder có khá nhiều file ấy
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Tạo `ci-log-triage` chỉ đọc log/report, bỏ đọc source, chạy test và sửa mã; giữ dẫn chứng, giả thuyết và bước xác minh.
+
+### 3. So sánh người và AI
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+commit e04 và thực hiện e08 để đánh giá e04 và kết quả từ skill e06
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Lưu phân tích của Vượng và so sánh với GPT-6.1 Sol. Hai bên cùng nhận ra vấn đề thứ tự thêm/đọc; báo cáo đối chiếu bằng chứng, bước kiểm tra và suy diễn, không kết luận tốc độ khi thiếu số đo.
+
+### Sản phẩm và minh chứng E-06–E-08
+
+- [Khảo sát và phương pháp đã chọn](../../../evidence/E-06/README.md).
+- [Output Codex GPT-6.1 Sol](../../../evidence/E-08/ai-sol/response.md).
+- [Báo cáo so sánh người–AI](../../../evidence/E-08/AI_vs_Human_Triage.md).

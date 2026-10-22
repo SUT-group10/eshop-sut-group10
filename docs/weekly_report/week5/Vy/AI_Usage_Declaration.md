@@ -5,8 +5,8 @@
 - **Họ và tên sinh viên:** Trần Quốc Vỹ
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
-- **Thời gian:** 19–21/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05.
+- **Thời gian:** 19–22/10/2026.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
@@ -17,7 +17,8 @@
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03 và E-05 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03, E-05 và E-06–E-08 | Chưa ước tính thành tỷ lệ phần trăm |
+| Codex | GPT-6.1 Sol, theo xác nhận | Phân tích log bằng skill, output được bàn giao để so sánh E-08 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
 
@@ -53,6 +54,14 @@
 
 **Kết quả:** Có bộ đầu vào chung cho Vượng và GPT; bằng chứng E-03 giữ nguyên. Đã kiểm tra nội dung ZIP và checksum.
 
+### 3.5. E-06–E-08 — Phương pháp và so sánh người–AI
+
+**Phần AI hỗ trợ:** Làm rõ phạm vi đề, tìm nguồn và điều chỉnh skill phân tích log; lưu output Codex GPT-6.1 Sol, đối chiếu với phân tích của Vượng và viết báo cáo so sánh.
+
+**Human Oversight:** Yêu cầu giới hạn skill ở việc đọc log, không đọc code hoặc sửa test. Chốt dùng `ci-log-triage`, cung cấp hai bản phân tích, yêu cầu giản lược file phụ và xác nhận Vượng đã review.
+
+**Kết quả:** Đã lưu skill có nguồn và báo cáo người–AI. Hai bên đồng thuận về vấn đề thứ tự thao tác. Phần này ghi nhận một lượt AI đã bàn giao, không ghi thành đã thử ba phương pháp theo E-07.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
@@ -67,6 +76,8 @@
 
 - **Đầu vào E-05:** [ZIP chuẩn hóa](../../../evidence/E-05/participant-input.zip), [hướng dẫn bàn giao](../../../evidence/E-05/README.md), [script tái tạo](../../../experiments/prepare-triage-input.py).
 
+- **E-06–E-08:** [khảo sát phương pháp](../../../evidence/E-06/README.md), [output Sol](../../../evidence/E-08/ai-sol/response.md), [báo cáo so sánh](../../../evidence/E-08/AI_vs_Human_Triage.md).
+
 ## 5. Cam kết
 
 Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiểm tra, yêu cầu chỉnh sửa; phân biệt kết quả local với CI/review. Người khai báo chịu trách nhiệm kiểm tra nội dung trước khi nộp.
@@ -80,3 +91,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 *Cập nhật E-03:* 21/10/2026.
 
 *Cập nhật E-05:* 21/10/2026.
+
+*Cập nhật E-06–E-08:* 22/10/2026.
