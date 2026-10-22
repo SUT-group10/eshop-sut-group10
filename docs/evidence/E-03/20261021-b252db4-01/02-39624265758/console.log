@@ -1,0 +1,33 @@
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --json --outputFile=test-results/flaky/results.json
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":60.359,"addCompletedMs":64.486,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":60.359,"addCompletedMs":64.486,"readSentMs":100.395,"readCompletedMs":102.889,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+PASS tests/experiments/cart-timing.flaky.js
+  ✓ E-01 cart contains the product after a fixed wait (injected timing flake) (214 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.476 s
+Ran all test suites.
+Test results written to: test-results/flaky/results.json

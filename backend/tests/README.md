@@ -1,5 +1,7 @@
 # Bộ kiểm thử và hướng dẫn chạy EShop — B-02–B-05
 
+Test thí nghiệm E-01 chạy riêng bằng `npm run test:flaky`; xem [cơ chế và hướng dẫn chạy](experiments/README.md). Test này không nằm trong bộ test chính dưới đây.
+
 ## Phạm vi và lý do chọn
 
 Bộ test gồm ba tầng, với expected result lấy từ [đặc tả nghiệp vụ](../../README.md):

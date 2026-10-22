@@ -1,0 +1,51 @@
+diff --git a/backend/tests/experiments/cart-timing.flaky.js b/backend/tests/experiments/cart-timing.flaky.js
+index 632c2e9..43a239f 100644
+--- a/backend/tests/experiments/cart-timing.flaky.js
++++ b/backend/tests/experiments/cart-timing.flaky.js
+@@ -6,9 +6,8 @@ const { createHarness } = require('../helpers/harness');
+ 
+ const FAST_DELAY_MS = 60;
+ const SLOW_DELAY_MS = 160;
+-const READ_WAIT_MS = 100;
+ 
+-test('E-01 cart contains the product after a fixed wait (injected timing flake)', async () => {
++test('E-09 cart contains the product after add completion', async () => {
+   const mode = process.env.FLAKE_LATENCY_MODE || 'sampled';
+   if (!['sampled', 'fast', 'slow'].includes(mode)) {
+     throw new Error('FLAKE_LATENCY_MODE must be sampled, fast or slow');
+@@ -26,7 +25,7 @@ test('E-01 cart contains the product after a fixed wait (injected timing flake)'
+     const elapsed = () => Number((performance.now() - started).toFixed(3));
+     const timeline = {};
+ 
+-    // Start A now. Do not await completion before starting B's fixed wait.
++    // Preserve the simulated delay, but synchronize the read with add completion.
+     // Capture errors immediately so a background rejection cannot go unhandled.
+     pendingAdd = (async () => {
+       await sleep(delayMs);
+@@ -34,19 +33,21 @@ test('E-01 cart contains the product after a fixed wait (injected timing flake)'
+       const response = await request(harness.app).post('/api/cart')
+         .auth(user.token, { type: 'bearer' }).send({ ...product, quantity: 1 });
+       timeline.addCompletedMs = elapsed();
+-      console.info('E-01 add completed ' + JSON.stringify({ ...timeline, httpStatus: response.status }));
++      console.info('E-09 add completed ' + JSON.stringify({ ...timeline, httpStatus: response.status }));
+       return response;
+     })().then(response => ({ response }), error => ({ error }));
+ 
+-    // Intentional defect: elapsed time is used instead of completion of A.
+-    await sleep(READ_WAIT_MS);
++    // A successful add, not elapsed time, permits the cart read.
++    const added = await pendingAdd;
++    expect(added.error).toBeUndefined();
++    expect(added.response.status).toBe(200);
+     timeline.readSentMs = elapsed();
+     const cart = await request(harness.app).get('/api/cart')
+       .auth(user.token, { type: 'bearer' });
+     timeline.readCompletedMs = elapsed();
+-    console.info('E-01 observation ' + JSON.stringify({
++    console.info('E-09 observation ' + JSON.stringify({
+       mode, selectedCase, delayMs,
+-      readWaitMs: READ_WAIT_MS, ...timeline, httpStatus: cart.status,
++      readAfterAdd: true, ...timeline, httpStatus: cart.status,
+       cart: cart.body,
+     }));
+     expect(cart.status).toBe(200);

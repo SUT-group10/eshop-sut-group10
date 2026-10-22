@@ -1,0 +1,26 @@
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-09 add completed {"addSentMs":165.028,"addCompletedMs":171.024,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:36:15)
+
+  console.info
+    E-09 observation {"mode":"slow","selectedCase":"slow","delayMs":160,"readAfterAdd":true,"addSentMs":165.028,"addCompletedMs":171.024,"readSentMs":172.547,"readCompletedMs":175.976,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:48:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.701 s, estimated 4 s
+Ran all test suites.
+Test results written to: ..\docs\evidence\E-09\after-02-slow.results.json

@@ -1,0 +1,25 @@
+{
+  "total_count": 1,
+  "artifacts": [
+    {
+      "id": 12354864440,
+      "node_id": "MDg6QXJ0aWZhY3QxMjM1NDg2NDQ0MA==",
+      "name": "flaky-39623369899-1",
+      "size_in_bytes": 2040,
+      "url": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/actions/artifacts/12354864440",
+      "archive_download_url": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/actions/artifacts/12354864440/zip",
+      "expired": false,
+      "digest": "sha256:50690c93a67199c4513de42b88280136777fc1acc3db7530e015302cbd83ecd2",
+      "created_at": "2026-10-21T15:12:15Z",
+      "updated_at": "2026-10-21T15:12:15Z",
+      "expires_at": "2026-11-04T15:12:14Z",
+      "workflow_run": {
+        "id": 39623369899,
+        "repository_id": 1401108536,
+        "head_repository_id": 1401108536,
+        "head_branch": "test/issue-5-flaky-experiment",
+        "head_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c"
+      }
+    }
+  ]
+}

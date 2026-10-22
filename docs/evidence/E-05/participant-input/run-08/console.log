@@ -1,0 +1,33 @@
+
+> backend@1.0.0 test:case
+> jest --config jest.case.config.cjs --runInBand --json --outputFile=test-results/case/results.json
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    Add completed {"addSentMs":60.336,"addCompletedMs":65.492,"httpStatus":200}
+
+      at info (tests/api/cart.test.js:37:15)
+
+  console.info
+    Cart observation {"addSentMs":60.336,"addCompletedMs":65.492,"readSentMs":100.593,"readCompletedMs":103.131,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/api/cart.test.js:47:13)
+
+PASS tests/api/cart.test.js
+  ✓ Cart contains the added product (312 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.766 s
+Ran all test suites.
+Test results written to: test-results/case/results.json

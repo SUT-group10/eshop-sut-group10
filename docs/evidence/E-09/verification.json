@@ -1,0 +1,526 @@
+{
+  "base_revision": "f057ac453c3221eb7aba4f238b96e40e2e3af078",
+  "local_node": "v24.14.0",
+  "local_npm": "11.21.0",
+  "platform": "Windows",
+  "before": {
+    "mode": "slow",
+    "exit_code": 1,
+    "command": [
+      "node",
+      "node_modules/jest/bin/jest.js",
+      "--config",
+      "jest.flaky.config.cjs",
+      "--runInBand",
+      "--json",
+      "--outputFile=../docs/evidence/E-09/before-slow.results.json"
+    ],
+    "failed_tests": 1
+  },
+  "after": [
+    {
+      "sequence": 1,
+      "mode": "fast",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-01-fast.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 260,
+      "observation": {
+        "mode": "fast",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 69.725,
+        "addCompletedMs": 78.693,
+        "readSentMs": 80.688,
+        "readCompletedMs": 85.36,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-01-fast.console.log",
+      "results": "after-01-fast.results.json"
+    },
+    {
+      "sequence": 2,
+      "mode": "slow",
+      "selected_case": "slow",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-02-slow.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 360,
+      "observation": {
+        "mode": "slow",
+        "selectedCase": "slow",
+        "delayMs": 160,
+        "readAfterAdd": true,
+        "addSentMs": 165.028,
+        "addCompletedMs": 171.024,
+        "readSentMs": 172.547,
+        "readCompletedMs": 175.976,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-02-slow.console.log",
+      "results": "after-02-slow.results.json"
+    },
+    {
+      "sequence": 3,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-03-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 262,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 62.736,
+        "addCompletedMs": 69.382,
+        "readSentMs": 70.819,
+        "readCompletedMs": 75.002,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-03-sampled.console.log",
+      "results": "after-03-sampled.results.json"
+    },
+    {
+      "sequence": 4,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-04-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 252,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 61.915,
+        "addCompletedMs": 74.425,
+        "readSentMs": 75.769,
+        "readCompletedMs": 79.229,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-04-sampled.console.log",
+      "results": "after-04-sampled.results.json"
+    },
+    {
+      "sequence": 5,
+      "mode": "sampled",
+      "selected_case": "slow",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-05-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 380,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "slow",
+        "delayMs": 160,
+        "readAfterAdd": true,
+        "addSentMs": 166.621,
+        "addCompletedMs": 172.348,
+        "readSentMs": 173.591,
+        "readCompletedMs": 176.564,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-05-sampled.console.log",
+      "results": "after-05-sampled.results.json"
+    },
+    {
+      "sequence": 6,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-06-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 261,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 62.546,
+        "addCompletedMs": 68.013,
+        "readSentMs": 69.315,
+        "readCompletedMs": 72.729,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-06-sampled.console.log",
+      "results": "after-06-sampled.results.json"
+    },
+    {
+      "sequence": 7,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-07-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 264,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 70.707,
+        "addCompletedMs": 81.051,
+        "readSentMs": 82.443,
+        "readCompletedMs": 85.903,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-07-sampled.console.log",
+      "results": "after-07-sampled.results.json"
+    },
+    {
+      "sequence": 8,
+      "mode": "sampled",
+      "selected_case": "slow",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-08-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 375,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "slow",
+        "delayMs": 160,
+        "readAfterAdd": true,
+        "addSentMs": 166.104,
+        "addCompletedMs": 171.745,
+        "readSentMs": 173.127,
+        "readCompletedMs": 176.825,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-08-sampled.console.log",
+      "results": "after-08-sampled.results.json"
+    },
+    {
+      "sequence": 9,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-09-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 279,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 71.044,
+        "addCompletedMs": 76.757,
+        "readSentMs": 78.182,
+        "readCompletedMs": 82.112,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-09-sampled.console.log",
+      "results": "after-09-sampled.results.json"
+    },
+    {
+      "sequence": 10,
+      "mode": "sampled",
+      "selected_case": "slow",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-10-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 380,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "slow",
+        "delayMs": 160,
+        "readAfterAdd": true,
+        "addSentMs": 171.621,
+        "addCompletedMs": 177.08,
+        "readSentMs": 178.409,
+        "readCompletedMs": 182.071,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-10-sampled.console.log",
+      "results": "after-10-sampled.results.json"
+    },
+    {
+      "sequence": 11,
+      "mode": "sampled",
+      "selected_case": "slow",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-11-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 364,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "slow",
+        "delayMs": 160,
+        "readAfterAdd": true,
+        "addSentMs": 168.451,
+        "addCompletedMs": 174.502,
+        "readSentMs": 176.05,
+        "readCompletedMs": 180.063,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-11-sampled.console.log",
+      "results": "after-11-sampled.results.json"
+    },
+    {
+      "sequence": 12,
+      "mode": "sampled",
+      "selected_case": "fast",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--json",
+        "--outputFile=../docs/evidence/E-09/after-12-sampled.results.json"
+      ],
+      "invocations": 1,
+      "test_duration_ms": 303,
+      "observation": {
+        "mode": "sampled",
+        "selectedCase": "fast",
+        "delayMs": 60,
+        "readAfterAdd": true,
+        "addSentMs": 64.353,
+        "addCompletedMs": 70.663,
+        "readSentMs": 71.954,
+        "readCompletedMs": 76.074,
+        "httpStatus": 200,
+        "cart": [
+          {
+            "id": 1,
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1,
+            "quantity": 1
+          }
+        ]
+      },
+      "console": "after-12-sampled.console.log",
+      "results": "after-12-sampled.results.json"
+    }
+  ],
+  "verification_started_at_utc": "2026-10-22T15:53:20.599502+00:00",
+  "lint": {
+    "command": "npm run lint",
+    "exit_code": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "exit_code": 0
+  },
+  "verification_completed_at_utc": "2026-10-22T15:53:37.446031+00:00",
+  "fixed_test_commit": "3a6290defb626f4bd41c53620c2a253d27e235c5",
+  "fixed_test_commit_note": "Commit recorded after local verification; test content matches verified fix.patch."
+}

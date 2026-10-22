@@ -1,0 +1,20 @@
+{
+  "id": 39626153807,
+  "run_number": 11,
+  "run_attempt": 1,
+  "head_branch": "test/issue-5-flaky-experiment",
+  "head_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+  "event": "workflow_dispatch",
+  "status": "completed",
+  "conclusion": "success",
+  "html_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39626153807",
+  "created_at": "2026-10-21T15:29:24Z",
+  "run_started_at": "2026-10-21T15:29:24Z",
+  "updated_at": "2026-10-21T15:49:17Z",
+  "path": ".github/workflows/flaky-experiment.yml",
+  "workflow_id": 391755632,
+  "check_suite_id": 107388095460,
+  "_source": "https://api.github.com/repos/SUT-group10/eshop-sut-group10/actions/runs/39626153807",
+  "_selected_fields": true,
+  "_collected_at_utc": "2026-10-21T15:44:54.251571Z"
+}

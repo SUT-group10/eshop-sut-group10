@@ -1,0 +1,118 @@
+{
+  "checked_on": "2026-10-22",
+  "passed": 5,
+  "failed": 5,
+  "timing_matches_original_e03": true,
+  "runs": [
+    {
+      "run": "run-01",
+      "status": "failed",
+      "timing": {
+        "readSentMs": 100.61,
+        "readCompletedMs": 105.484,
+        "addSentMs": 161.179,
+        "addCompletedMs": 164.156
+      },
+      "relation": "read_before_add"
+    },
+    {
+      "run": "run-02",
+      "status": "passed",
+      "timing": {
+        "addSentMs": 60.359,
+        "addCompletedMs": 64.486,
+        "readSentMs": 100.395,
+        "readCompletedMs": 102.889
+      },
+      "relation": "add_before_read"
+    },
+    {
+      "run": "run-03",
+      "status": "failed",
+      "timing": {
+        "readSentMs": 100.371,
+        "readCompletedMs": 105.837,
+        "addSentMs": 159.927,
+        "addCompletedMs": 162.624
+      },
+      "relation": "read_before_add"
+    },
+    {
+      "run": "run-04",
+      "status": "passed",
+      "timing": {
+        "addSentMs": 60.476,
+        "addCompletedMs": 66.618,
+        "readSentMs": 100.748,
+        "readCompletedMs": 104.083
+      },
+      "relation": "add_before_read"
+    },
+    {
+      "run": "run-05",
+      "status": "failed",
+      "timing": {
+        "readSentMs": 99.752,
+        "readCompletedMs": 103.829,
+        "addSentMs": 160.076,
+        "addCompletedMs": 162.817
+      },
+      "relation": "read_before_add"
+    },
+    {
+      "run": "run-06",
+      "status": "passed",
+      "timing": {
+        "addSentMs": 60.515,
+        "addCompletedMs": 66.321,
+        "readSentMs": 100.361,
+        "readCompletedMs": 103.469
+      },
+      "relation": "add_before_read"
+    },
+    {
+      "run": "run-07",
+      "status": "failed",
+      "timing": {
+        "readSentMs": 100.521,
+        "readCompletedMs": 106.37,
+        "addSentMs": 159.552,
+        "addCompletedMs": 163.068
+      },
+      "relation": "read_before_add"
+    },
+    {
+      "run": "run-08",
+      "status": "passed",
+      "timing": {
+        "addSentMs": 60.336,
+        "addCompletedMs": 65.492,
+        "readSentMs": 100.593,
+        "readCompletedMs": 103.131
+      },
+      "relation": "add_before_read"
+    },
+    {
+      "run": "run-09",
+      "status": "passed",
+      "timing": {
+        "addSentMs": 60.604,
+        "addCompletedMs": 66.993,
+        "readSentMs": 100.13,
+        "readCompletedMs": 103.392
+      },
+      "relation": "add_before_read"
+    },
+    {
+      "run": "run-10",
+      "status": "failed",
+      "timing": {
+        "readSentMs": 100.525,
+        "readCompletedMs": 105.381,
+        "addSentMs": 160.184,
+        "addCompletedMs": 162.903
+      },
+      "relation": "read_before_add"
+    }
+  ]
+}
