@@ -34,14 +34,14 @@ jobs:
         with:
           node-version: 22.14.0
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
+      - name: Restore npm cache
+        id: npm-cache
+        uses: actions/cache/restore@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-22.14.0-npm-${{ hashFiles('backend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-22.14.0-npm-
-          save-always: true
 
       - name: Record runtime
         run: |
@@ -54,6 +54,13 @@ jobs:
         env:
           npm_config_build_from_source: "true"
         run: npm ci
+
+      - name: Save npm cache
+        if: ${{ !cancelled() && steps.npm-cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.npm
+          key: ${{ steps.npm-cache.outputs.cache-primary-key }}
 
       - name: Lint
         run: npm run lint
