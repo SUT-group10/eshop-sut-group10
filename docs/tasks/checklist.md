@@ -70,7 +70,7 @@ Brief T07 yêu cầu workflow, coverage XML, branch protection, thí nghiệm 10
 
 | Mã Task | Checklist | Người thực hiện | Bằng chứng hoàn thành |
 |:---:|---|---|---|
-| **F-01** | [ ] Viết phần lý thuyết ngắn, đúng trọng tâm: CI/CD, test harness, runner/agent, fixture, cache, coverage, quality gate, flaky test | Dương; Vượng/Vỹ review | Nội dung dùng chung cho guide, báo cáo, slide |
+| **F-01** | [ ] Viết phần lý thuyết ngắn, đúng trọng tâm: CI/CD, test harness, runner/agent, fixture, cache, coverage, quality gate, flaky test | Dương; Vượng/Vỹ review | Nội dung dùng chung cho guide, báo cáo, slide; đã có [phần flaky test](../evidence/F-01/Flakytest/README.md) |
 | **F-02** | [ ] Khảo sát GitHub Actions, Jenkins, GitLab CI và các hướng AI; giải thích chức năng, lúc nên dùng, giới hạn và lý do chọn/bỏ | Vượng; Vỹ viết phần AI | Bảng so sánh có nguồn tham khảo |
 | **F-03** | [ ] Chuẩn bị **ba kịch bản demo** rõ ràng: cài đặt, chức năng cơ bản, luồng phức tạp (cache/branch protection/flaky triage) | Dương điều phối; mỗi owner phụ trách công cụ của mình | Script và kết quả chạy của từng kịch bản |
 | **F-04** | [ ] Viết cách tái áp dụng cho một dự án khác: cần có lệnh test nào, fixture nào, cách đưa vào CI, cách đọc log và kiểm chứng AI | Vỹ; Dương review | Checklist “áp dụng cho dự án mới” |
