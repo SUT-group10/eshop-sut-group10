@@ -60,7 +60,7 @@ Phần test cần đủ để minh họa **kỹ nghệ harness và CI/CD**, khô
 | **E-05** | [x] Chuẩn hóa dữ liệu đưa cho ChatGPT: cùng log và lịch sử chạy; loại bí mật/thông tin cá nhân | Vỹ | [Input và prompt chuẩn hóa](../evidence/E-05/README.md) được lưu nguyên bản |
 | **E-06**| [x] Tìm kiếm và đề xuất 1 prompt patterns / SKILLS phân tích log CI từ Github repo, diễn đàn DevOps hoặc bài báo học thuật để chọn ra kỹ thuật tối ưu nhất (ví dụ: Chain-of-Thought, Few-Shot Prompting) | Vỹ, Vượng, Dương / prompt/SKILLS| [Khảo sát và skill đề xuất](../evidence/E-06/README.md) cho báo cáo `AI_vs_Human_Triage`; chưa kết luận tối ưu qua thực nghiệm |
 | **E-07** | [ ] Thử và đánh giá 3 prompt patterns /SKILLS đã được tìm kiếm ở E-06a: tối đa 3 giả thuyết, dẫn chứng chính xác, 3 bước kiểm tra, nêu mức độ chưa chắc chắn | Vỹ | Prompt và output nguyên bản |
-| **E-08** | [ ] So sánh người và AI theo cùng rubric: root cause, bằng chứng, bước tiếp theo, thời gian, suy diễn/hallucination | Vỹ; Vượng review | Báo cáo `AI_vs_Human_Triage` |
+| **E-08** | [x] So sánh người và AI theo cùng rubric: root cause, bằng chứng, bước tiếp theo, thời gian, suy diễn/hallucination | Vỹ; Vượng review | [Báo cáo AI_vs_Human_Triage](../evidence/E-08/AI_vs_Human_Triage.md); Vượng đã review, thời gian không đủ dữ liệu để so tốc độ |
 | **E-09** | [ ] Sửa flake và chạy lại để xác nhận nguyên nhân, không dừng ở phỏng đoán từ log | Vỹ | Commit sửa và run xác nhận |
 | **E-10** | [ ] Rút ra ít nhất **3 failure modes thực tế** của AI và biện pháp kiểm chứng | Vỹ | Ví dụ gắn với output/log thật |
 
