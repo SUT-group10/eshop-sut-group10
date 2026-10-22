@@ -1,3 +1,27 @@
+# E-09 — Kiểm chứng sau khi sửa timing flake
+
+Phiên bản hiện tại đợi `POST /api/cart` hoàn tất và kiểm tra HTTP 200 trước khi gửi `GET /api/cart`. Không dùng mốc chờ cố định 100 ms nữa. Vẫn giữ độ trễ mô phỏng 60/160 ms, lựa chọn sampled và assertion giỏ hàng. Cả fast và slow đều phải pass khi API xử lý đúng.
+
+Chạy từ repo root, bằng PowerShell:
+
+```powershell
+cd backend
+$env:FLAKE_LATENCY_MODE = 'slow'
+npm run test:flaky
+$LASTEXITCODE
+Remove-Item Env:FLAKE_LATENCY_MODE
+```
+
+Đổi slow thành fast hoặc sampled để thử chế độ khác. Log `E-09 observation` cần có `addCompletedMs <= readSentMs`, HTTP 200, một sản phẩm và quantity 1. Trường `readAfterAdd: true` chỉ mô tả bản sửa; timing và assertion là bằng chứng. Tên file `.flaky.js` và lệnh giữ nguyên để dùng cấu hình chạy riêng, không có nghĩa bản sửa phải fail ngẫu nhiên.
+
+Bằng chứng trước/sau ở [E-09](../../../docs/evidence/E-09/README.md). Dữ liệu E-03/E-05 giữ nguyên phiên bản cũ. Muốn tái hiện flake cũ, dùng revision ghi trong E-03 trên checkout riêng.
+
+---
+
+# Tài liệu lịch sử E-01 — trước bản sửa E-09
+
+**Nội dung bên dưới mô tả phiên bản cũ. Các nhận định slow fail và log E-01 chỉ áp dụng trước bản sửa.**
+
 # E-01 — API test có sleep-based flake
 
 Đây là test thí nghiệm được chủ động tạo, không phải lỗi timing đã phát hiện sẵn trong EShop. Chạy bằng JavaScript/Jest và Supertest qua route Express thật. Dùng fixture SQLite trong bộ nhớ; không cần mở server hoặc database riêng.
