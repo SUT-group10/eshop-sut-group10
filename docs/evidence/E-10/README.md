@@ -1,5 +1,7 @@
 # E-10 — Kết luận về giá trị và failure modes của AI
 
+> Nội dung bên dưới giữ kết luận **thí nghiệm v1 — cart**. Bản hiện hành nằm tại [E-10 v2 — giá trị, nhiễu và ba failure modes](order-history-v2-39860438568/README.md), dựa trên batch CI order history và output GPT-6.1 Sol v2. [Protocol v2](../../experiments/order-history-protocol.md).
+
 Ngày chốt: 22/10/2026. Nhóm quyết định đóng task với kết quả quan sát hiện có, không tạo thêm trường hợp lỗi hoặc bịa failure mode để đủ số lượng.
 
 ## Kết quả trong ca đã thực hiện
@@ -14,7 +16,7 @@ AI tổng hợp đúng 10 lượt, trích các mốc timing và đề xuất cá
 
 [Báo cáo E-08](../E-08/AI_vs_Human_Triage.md) vẫn ghi hai điểm cần làm rõ: cách giữ revision khi thay đổi thứ tự thao tác và ý nghĩa timestamp workflow/Jest. Không xóa các nhận xét này chỉ vì giả thuyết chính đúng. Chúng là điểm review về diễn đạt/metadata, chưa được tính thành ba failure modes thực tế riêng biệt.
 
-Biện pháp kiểm chứng áp dụng trong ca này: đối chiếu số liệu với log gốc, phân biệt quan sát với giả thuyết và kiểm chứng thay đổi đồng bộ ở E-09. Không dùng số liệu thời gian thiếu để tuyên bố AI nhanh hơn người.
+Biện pháp kiểm chứng áp dụng trong ca này: đối chiếu số liệu với log gốc, phân biệt quan sát với giả thuyết và kiểm chứng thay đổi đồng bộ ở E-09. Thời lượng Vượng là 20 phút, Sol là 1 phút 30 giây; chênh lệch này chưa tính toàn bộ công sức review và xác minh nên không tự chứng minh năng suất tổng thể.
 
 ## Ranh giới kết luận và trạng thái
 

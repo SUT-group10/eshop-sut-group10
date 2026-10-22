@@ -6,7 +6,7 @@
   "recorded_on_timezone": "Asia/Bangkok",
   "original_execution_started_at": null,
   "original_execution_finished_at": null,
-  "analysis_duration_seconds": null,
+  "analysis_duration_seconds": 90,
   "response_source": "Response pasted by user in this conversation; not rerun by recording assistant",
   "prompt_source": "User-provided prompt representation; personal skill path redacted; ellipsis retained",
   "input_reference": "../../E-05/participant-input.zip",
@@ -16,5 +16,6 @@
   "manual_comparison_completed": true,
   "comparison_report": "../AI_vs_Human_Triage.md",
   "reviewer": "Vượng",
-  "review_source": "User confirmation in conversation"
+  "review_source": "User confirmation in conversation",
+  "analysis_duration_source": "User confirmation in conversation"
 }

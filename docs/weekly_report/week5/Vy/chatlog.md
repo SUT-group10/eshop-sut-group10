@@ -5,9 +5,9 @@
 - **Sinh viên:** Trần Quốc Vỹ
 - **MSSV:** 23120410
 - **Công cụ:** ChatGPT / Codex
-- **Thời gian:** 19–22/10/2026.
+- **Thời gian:** 19–23/10/2026.
 - **Model:** Các phiên trước chưa xác định; lượt AI triage được bàn giao là GPT-6.1 Sol theo xác nhận.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10; nâng cấp thí nghiệm flaky v2 với retry history, log từng attempt và đóng gói dữ liệu.
 - **Khai báo và Human Oversight:** [AI_Usage_Declaration.md](AI_Usage_Declaration.md).
 
 Các prompt và trích đoạn phản hồi dưới đây được chọn từ session thực tế, không phải export toàn bộ session. Đoạn nguyên văn giữ cách diễn đạt gốc; phần tổng hợp được ghi riêng. Thao tác viết code, sửa file và chạy kiểm chứng do AI thực hiện được phân biệt với việc đọc, đặt câu hỏi và yêu cầu chỉnh sửa.
@@ -816,3 +816,65 @@ Commit bản sửa và bằng chứng E-09. Đóng E-10 theo quyết định nh�
 - [Bản sửa và kiểm chứng trước/sau](../../../evidence/E-09/README.md).
 - [Kết quả các lượt kiểm chứng](../../../evidence/E-09/verification.json).
 - [Kết luận E-10](../../../evidence/E-10/README.md).
+
+## Phiên chat 7: Nâng cấp thí nghiệm flaky v2 — retry, log và đóng gói
+
+- **Thời gian:** 23/10/2026.
+- **Phạm vi:** Thiết kế lại thí nghiệm, bổ sung retry history, kiểm chứng local, đóng gói dữ liệu và đồng bộ tài liệu v2; giữ riêng kết quả v1.
+- Prompt dưới đây được rút gọn theo nội dung đã duyệt; phần tổng hợp diễn biến không phải trích nguyên văn phản hồi AI.
+
+<a id="flaky-v2"></a>
+
+### 1. Thiết kế mới và retry
+
+#### Prompt (Sinh viên, rút gọn, không phải nguyên văn):
+
+````text
+Thiết kế flaky test mới, có retry = 2, log rõ hơn và dễ đóng gói để phân tích.
+````
+
+#### Tổng hợp quá trình (không phải trích nguyên văn):
+
+AI triển khai test đặt hàng–lịch sử đơn hàng, dùng SQLite trong RAM. Jest retry tối đa 2 lần sau thất bại, tương ứng tối đa 3 attempt; mỗi attempt có fixture riêng. Log lưu request, response, assertion và retry history.
+
+### 2. Kiểm tra độ phức tạp
+
+#### Prompt (Sinh viên, rút gọn, không phải nguyên văn):
+
+````text
+Test dùng database thật có bị overengineer không, có còn là một test và tốn nhiều tài nguyên không?
+````
+
+#### Tổng hợp quá trình (không phải trích nguyên văn):
+
+Làm rõ đây là một test với nhiều lượt chạy, không cần database server. AI thừa nhận phần thu thập và đóng gói evidence khá cầu kỳ, phục vụ giữ lịch sử retry và chuẩn bị dữ liệu phân tích.
+
+### 3. Hai chế độ và tên ZIP
+
+#### Prompt (Sinh viên, rút gọn, không phải nguyên văn):
+
+````text
+Tại sao có cả awaited và timed? Chạy thêm thì tên ZIP có bị trùng không?
+````
+
+#### Tổng hợp quá trình (không phải trích nguyên văn):
+
+`timed` chờ cố định rồi đọc; `awaited` đợi đặt hàng hoàn tất. Mỗi batch giữ một chế độ. Sau phản hồi, AI sửa tên ZIP bằng timestamp và mã ngẫu nhiên, thêm `packet_id` và ngăn ghi đè; kiểm tra đóng gói đạt 8/8.
+
+### 4. Chốt v2 và giữ v1
+
+#### Prompt (Sinh viên, rút gọn, không phải nguyên văn):
+
+````text
+Đánh dấu v2 là bản hiện hành; giữ kết quả v1, thêm evidence v2 và cập nhật hai báo cáo AI.
+````
+
+#### Tổng hợp quá trình (không phải trích nguyên văn):
+
+AI đồng bộ README, hướng dẫn và checklist; giữ riêng log, ZIP, phân tích Vượng/Sol và kết luận v1. Kết quả local v2 được lưu riêng, không gán phân tích cũ cho dữ liệu mới.
+
+### Sản phẩm và minh chứng v2
+
+- [Protocol thí nghiệm v2](../../../experiments/order-history-protocol.md).
+- [Bằng chứng kiểm chứng local v2](../../../evidence/E-03/order-history-v2-local-20261023/README.md).
+- [Dữ liệu kiểm chứng](../../../evidence/E-03/order-history-v2-local-20261023/verification.json).

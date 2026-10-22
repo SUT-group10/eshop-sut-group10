@@ -5,6 +5,8 @@
 > **Phạm vi tài liệu**: Mô tả **yêu cầu nghiệp vụ đúng** của hệ thống EShop.
 > Sinh viên sử dụng tài liệu này làm cơ sở thiết kế test case, sau đó kiểm thử hệ thống thực để tìm ra các điểm triển khai không tuân thủ đặc tả.
 
+**Seminar T07:** xem [hướng dẫn bộ test](backend/tests/README.md) và [checklist](docs/tasks/checklist.md). Thí nghiệm flaky hiện hành là **v2 — order history**, có [protocol và lệnh chạy](docs/experiments/order-history-protocol.md), [bằng chứng local](docs/evidence/E-03/order-history-v2-local-20261023/README.md), [batch CI](docs/evidence/E-03/order-history-v2-ci-39860438568/README.md), [đối chiếu người–AI](docs/evidence/E-08/order-history-v2-39860438568/AI_vs_Human_Triage.md) và [kết luận E-10 với ba failure modes](docs/evidence/E-10/order-history-v2-39860438568/README.md). [Bản sửa awaited đã xác nhận trên CI](docs/evidence/E-09/order-history-v2-ci-39911447981/README.md): 10/10 PASS, retry=0. Thí nghiệm cart **v1** và kết quả của đợt cũ được giữ làm lịch sử.
+
 ---
 
 ## 1. Tổng quan Hệ thống

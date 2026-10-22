@@ -1,4 +1,26 @@
-# E-09 — Kiểm chứng sau khi sửa timing flake
+# Thí nghiệm hiện tại — Order history, retry và evidence v2
+
+Đọc [protocol v2.0](../../../docs/experiments/order-history-protocol.md) để chạy thí nghiệm mới, xem từng attempt và lấy ZIP cho người/AI. Từ `backend`, chạy `npm run experiment:orders -- --runs 10 --retries 2`. Bản mới dùng order API và SQLite thật, retry của Jest tối đa 2 lần; `npm run test:flaky` hiện chọn ca mới này.
+
+Mỗi batch chọn một chế độ: `timed` để quan sát flake, `awaited` để kiểm chứng sửa đồng bộ. Retry giữ nguyên chế độ. Mặc định batch chính có 10 tiến trình Jest độc lập, mỗi tiến trình tối đa ba attempt; đây không phải 10 test case khác nhau hoặc 10 dispatch.
+
+```powershell
+cd backend
+npm run experiment:orders -- --runs 10 --retries 2
+$LASTEXITCODE
+```
+
+Lệnh trên chạy từ repo root, sau khi cài dependency backend và có Python 3. Bàn giao `analysis-input-<batch-id>.zip` được in cuối lệnh; giữ `organizer-evidence-<batch-id>.zip` cho người tổ chức. Các ZIP lưu từ đợt kiểm chứng trước khi đổi tên vẫn mang tên lịch sử.
+
+[Kiểm chứng local v2](../../../docs/evidence/E-03/order-history-v2-local-20261023/README.md) lưu sáu batch, trace từng attempt và gói phân tích mới. Đây là dữ liệu mới, không thay thế kết quả người–AI trước đây.
+
+**Trạng thái v2:** đã có implementation, protocol và kiểm chứng local. Run CI, phân tích thủ công/AI và so sánh v2 cần bằng chứng riêng khi thực hiện. Thời lượng 20 phút/90 giây và các kết luận E-08–E-10 cũ thuộc v1.
+
+Phần cart bên dưới là tài liệu **v1 lịch sử**. Các lệnh ở phần này áp dụng revision v1 tương ứng, không phải hành vi hiện tại của `test:flaky`. Bản cart sau sửa nằm ở commit `3a6290defb626f4bd41c53620c2a253d27e235c5`; bản trước sửa dùng revision ghi trong E-03 v1.
+
+---
+
+# Lịch sử v1 — E-09, kiểm chứng sau khi sửa timing flake
 
 Phiên bản hiện tại đợi `POST /api/cart` hoàn tất và kiểm tra HTTP 200 trước khi gửi `GET /api/cart`. Không dùng mốc chờ cố định 100 ms nữa. Vẫn giữ độ trễ mô phỏng 60/160 ms, lựa chọn sampled và assertion giỏ hàng. Cả fast và slow đều phải pass khi API xử lý đúng.
 

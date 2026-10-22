@@ -50,3 +50,7 @@ Các bước dưới đây là đề xuất cho người xác minh; mình chưa 
 **4. Kết luận hiện tại**
 
 Bằng chứng nhất quán nhất là **FAIL khi đọc trước thêm, PASS khi thêm hoàn tất trước đọc**. Chưa xác nhận lỗi mã cụ thể, chưa tái hiện hoặc sửa lỗi. Cần bổ sung quan hệ chờ trong luồng điều phối và trạng thái giỏ sau khi thêm ở các kịch bản FAIL để chốt nguyên nhân.
+
+**5. Thời lượng thực hiện**
+
+Thời lượng phân tích: **1 phút 30 giây (90 giây)**.

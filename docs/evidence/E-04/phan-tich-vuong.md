@@ -42,3 +42,9 @@ Các lượt fail đều hỏng cùng một chỗ: `expect(cart.body).toHaveLeng
 - H2, H3: chưa đủ dữ liệu.
 
 Còn thiếu: source test, log server, tham số mô phỏng đã bị bỏ. Ngoài ra mẫu chỉ có 10 lượt.
+
+## 5. Thời lượng và trình tự thực hiện
+
+- **Người phân tích:** Nguyễn Khắc Vượng.
+- **Thời lượng hoàn thiện:** 20 phút.
+- **Trình tự:** hoàn thiện bản phân tích trước khi xem output Codex GPT-6.1 Sol.
