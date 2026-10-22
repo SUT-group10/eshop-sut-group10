@@ -7,7 +7,7 @@
 - **Công cụ:** ChatGPT / Codex
 - **Thời gian:** 19–22/10/2026.
 - **Model:** Các phiên trước chưa xác định; lượt AI triage được bàn giao là GPT-6.1 Sol theo xác nhận.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10.
 - **Khai báo và Human Oversight:** [AI_Usage_Declaration.md](AI_Usage_Declaration.md).
 
 Các prompt và trích đoạn phản hồi dưới đây được chọn từ session thực tế, không phải export toàn bộ session. Đoạn nguyên văn giữ cách diễn đạt gốc; phần tổng hợp được ghi riêng. Thao tác viết code, sửa file và chạy kiểm chứng do AI thực hiện được phân biệt với việc đọc, đặt câu hỏi và yêu cầu chỉnh sửa.
@@ -778,3 +778,41 @@ Lưu phân tích của Vượng và so sánh với GPT-6.1 Sol. Hai bên cùng n
 - [Khảo sát và phương pháp đã chọn](../../../evidence/E-06/README.md).
 - [Output Codex GPT-6.1 Sol](../../../evidence/E-08/ai-sol/response.md).
 - [Báo cáo so sánh người–AI](../../../evidence/E-08/AI_vs_Human_Triage.md).
+
+## Phiên chat 6: E-09–E-10 — Sửa đồng bộ và chốt đánh giá
+
+- **Thời gian:** 22/10/2026.
+- **Phạm vi:** Sửa test theo giả thuyết đã phân tích, kiểm chứng trước/sau và chốt kết luận E-10.
+- Các phản hồi AI dưới đây là bản tóm tắt theo nội dung đã duyệt, không phải trích nguyên văn.
+
+<a id="e09-e10-verification"></a>
+
+### 1. Sửa đồng bộ và kiểm chứng
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+sửa flaky test lại giúp tôi, lúc đầu ta thiết kế đúng như những gì vượng và ai đang nói
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Sửa test để đợi POST thêm sản phẩm hoàn tất rồi mới GET giỏ hàng. Tái hiện slow FAIL trước sửa; sau sửa 12/12 lượt PASS, lint/build đạt. Giữ riêng bằng chứng trước/sau.
+
+### 2. Commit E-09 và chốt E-10
+
+#### Prompt (Sinh viên, nguyên văn):
+
+````text
+oke commit nó lên E09, sẵn chốt luôn E10, vì kết quả đúng nên không có failure
+````
+
+#### Phản hồi từ AI (Assistant, tóm tắt):
+
+Commit bản sửa và bằng chứng E-09. Đóng E-10 theo quyết định nhóm với kết luận chưa quan sát failure chẩn đoán trong ca này; không ghi thành AI luôn đúng hoặc đã tìm đủ ba failure modes.
+
+### Sản phẩm và minh chứng E-09–E-10
+
+- [Bản sửa và kiểm chứng trước/sau](../../../evidence/E-09/README.md).
+- [Kết quả các lượt kiểm chứng](../../../evidence/E-09/verification.json).
+- [Kết luận E-10](../../../evidence/E-10/README.md).

@@ -6,7 +6,7 @@
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
 - **Thời gian:** 19–22/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
@@ -17,7 +17,7 @@
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03, E-05 và E-06–E-08 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03, E-05 và E-06–E-10 | Chưa ước tính thành tỷ lệ phần trăm |
 | Codex | GPT-6.1 Sol, theo xác nhận | Phân tích log bằng skill, output được bàn giao để so sánh E-08 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
@@ -62,6 +62,14 @@
 
 **Kết quả:** Đã lưu skill có nguồn và báo cáo người–AI. Hai bên đồng thuận về vấn đề thứ tự thao tác. Phần này ghi nhận một lượt AI đã bàn giao, không ghi thành đã thử ba phương pháp theo E-07.
 
+### 3.6. E-09–E-10 — Sửa đồng bộ và chốt đánh giá
+
+**Phần AI hỗ trợ:** Sửa đồng bộ test, chạy kiểm chứng trước/sau, lưu bằng chứng và tổng hợp kết luận E-10.
+
+**Human Oversight:** Yêu cầu sửa theo giả thuyết người và AI đã phân tích. Sau khi xem kết quả, yêu cầu commit E-09 và chốt E-10 theo kết quả quan sát.
+
+**Kết quả:** Trước sửa tái hiện lỗi; sau sửa 12/12 lượt PASS, lint/build đạt. Giả thuyết chính được hỗ trợ qua kiểm chứng; E-10 đóng theo quyết định nhóm, không ghi nhận đủ ba failure modes thực tế.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
@@ -78,6 +86,8 @@
 
 - **E-06–E-08:** [khảo sát phương pháp](../../../evidence/E-06/README.md), [output Sol](../../../evidence/E-08/ai-sol/response.md), [báo cáo so sánh](../../../evidence/E-08/AI_vs_Human_Triage.md).
 
+- **E-09–E-10:** [kiểm chứng trước/sau](../../../evidence/E-09/README.md), [kết quả các lượt](../../../evidence/E-09/verification.json), [kết luận E-10](../../../evidence/E-10/README.md).
+
 ## 5. Cam kết
 
 Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiểm tra, yêu cầu chỉnh sửa; phân biệt kết quả local với CI/review. Người khai báo chịu trách nhiệm kiểm tra nội dung trước khi nộp.
@@ -93,3 +103,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 *Cập nhật E-05:* 21/10/2026.
 
 *Cập nhật E-06–E-08:* 22/10/2026.
+
+*Cập nhật E-09–E-10:* 22/10/2026.
