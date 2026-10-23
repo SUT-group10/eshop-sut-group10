@@ -1,0 +1,544 @@
+{
+  "protocol": "order-history-v2.0",
+  "batch_id": "20261022T215153Z-1abf079b",
+  "recorded_on": "2026-10-23T05:42:02.385854+00:00",
+  "collection_action": "Archive user-provided CI artifacts and fetch existing run metadata/logs; no workflow dispatch or test rerun",
+  "github_run": {
+    "id": 39860438568,
+    "name": "Flaky experiment (manual only)",
+    "run_number": 14,
+    "run_attempt": 1,
+    "head_branch": "test/issue-5-flaky-retry-v2",
+    "head_sha": "52e400689109b5423ad04eb2bef41280a0f149ff",
+    "path": ".github/workflows/flaky-experiment.yml",
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-10-22T21:50:24Z",
+    "run_started_at": "2026-10-22T21:50:24Z",
+    "updated_at": "2026-10-22T21:52:13Z",
+    "html_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39860438568"
+  },
+  "github_job": {
+    "id": 120109456789,
+    "name": "order-history",
+    "status": "completed",
+    "conclusion": "failure",
+    "started_at": "2026-10-22T21:50:28Z",
+    "completed_at": "2026-10-22T21:52:12Z",
+    "html_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39860438568/job/120109456789",
+    "runner_name": "GitHub Actions 1000000027",
+    "runner_group_name": "GitHub Actions",
+    "labels": [
+      "ubuntu-22.04"
+    ],
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1,
+        "started_at": "2026-10-22T21:50:29Z",
+        "completed_at": "2026-10-22T21:50:30Z"
+      },
+      {
+        "name": "Run actions/checkout@v6",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2,
+        "started_at": "2026-10-22T21:50:30Z",
+        "completed_at": "2026-10-22T21:50:31Z"
+      },
+      {
+        "name": "Run actions/setup-node@v6",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-10-22T21:50:31Z",
+        "completed_at": "2026-10-22T21:50:37Z"
+      },
+      {
+        "name": "Install dependencies",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4,
+        "started_at": "2026-10-22T21:50:37Z",
+        "completed_at": "2026-10-22T21:51:53Z"
+      },
+      {
+        "name": "Record source and runtime",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5,
+        "started_at": "2026-10-22T21:51:53Z",
+        "completed_at": "2026-10-22T21:51:53Z"
+      },
+      {
+        "name": "Run independent tests and retain every retry",
+        "status": "completed",
+        "conclusion": "failure",
+        "number": 6,
+        "started_at": "2026-10-22T21:51:53Z",
+        "completed_at": "2026-10-22T21:52:07Z"
+      },
+      {
+        "name": "Upload analysis packet (safe to hand to analysts)",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7,
+        "started_at": "2026-10-22T21:52:07Z",
+        "completed_at": "2026-10-22T21:52:08Z"
+      },
+      {
+        "name": "Upload original evidence and organizer controls",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 8,
+        "started_at": "2026-10-22T21:52:08Z",
+        "completed_at": "2026-10-22T21:52:10Z"
+      },
+      {
+        "name": "Post Run actions/setup-node@v6",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 15,
+        "started_at": "2026-10-22T21:52:10Z",
+        "completed_at": "2026-10-22T21:52:10Z"
+      },
+      {
+        "name": "Post Run actions/checkout@v6",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 16,
+        "started_at": "2026-10-22T21:52:10Z",
+        "completed_at": "2026-10-22T21:52:10Z"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 17,
+        "started_at": "2026-10-22T21:52:10Z",
+        "completed_at": "2026-10-22T21:52:10Z"
+      }
+    ]
+  },
+  "github_artifacts": [
+    {
+      "id": 12462165588,
+      "name": "api-analysis-input-39860438568-1",
+      "size_in_bytes": 41414,
+      "digest": "sha256:21b71dddfaa046017db43ab647d1a472a57ae724722446efea569666c58792c5",
+      "expired": false,
+      "created_at": "2026-10-22T21:52:08Z",
+      "expires_at": "2027-01-20T21:50:25Z"
+    },
+    {
+      "id": 12460934863,
+      "name": "organizer-evidence-39860438568-1",
+      "size_in_bytes": 94945,
+      "digest": "sha256:14a9430304bb3a77571f968704d70db049f5f7c75a2ac4c0de7e89310085a1cc",
+      "expired": false,
+      "created_at": "2026-10-22T21:52:09Z",
+      "expires_at": "2027-01-20T21:50:25Z"
+    }
+  ],
+  "runtime": {
+    "node": "v24.14.0",
+    "jest": "30.5.2",
+    "python": "3.10.12",
+    "system": "Linux",
+    "platform": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+    "npm_user_agent": null,
+    "npm": "11.9.0",
+    "runner_os": "Ubuntu 22.04.5",
+    "runner_image": "ubuntu-22.04",
+    "runner_image_version": "20261012.322.1",
+    "additional_runtime_source": "job-logs.zip: 0_order-history.txt"
+  },
+  "source_commit": "52e400689109b5423ad04eb2bef41280a0f149ff",
+  "source_worktree_status": "",
+  "source_sha256": {
+    "backend/tests/experiments/order-history.case.js": "1079ebf22de094972a03989ed20b6a3dbd0868b1d8476ddc30b198edf942054d",
+    "backend/tests/helpers/order-history-observer.js": "b8e6992cf6e483b359e112f92aa05ad076cde8debb6de2abc3110d3a47b7d4f5",
+    "backend/tests/helpers/harness.js": "929f2fa49fa1b8a75e612dd06eca022b52c3485fcb3d2e00b9ba5b3a7f5dda1d",
+    "backend/jest.flaky.config.cjs": "d89f9e63b9f08630702e698d96b7c15850726133c714eb1264fb459a861bdd01",
+    "backend/jest.config.cjs": "ba13f3a037cbb4bace85adedd8eda96b4fa9c4058562a05ece797515424fc288",
+    "backend/package.json": "15b9b3ee0562ede3064e75db98ec5fe8a1ba2890b0bfe2e56294f8a0b5560dde",
+    "backend/package-lock.json": "97c74a527b15b0474bb9aab2280c60261ba54ef623fbcf7f04e1795744ce83bb",
+    "backend/server.js": "3df7be51adabcfe934712bff2d40928660ad4169447d15c80146372096169ec0",
+    "backend/database.js": "3366420632bb9c982905b22e3969f69515e39e7a37a4f84eba56ead7e94afed8",
+    ".github/workflows/flaky-experiment.yml": "6e43449d9679d838b0e52842870d88ea56fbf5d335c92ad2b18fbba82caa825e",
+    "docs/experiments/run-order-history.py": "dca79dd196f653a04aa68192f92b480306affa96ba4de4d4bbb88c16530bd57a",
+    "docs/experiments/order-history-protocol.md": "00cc0ecb031fd7206dc2b53e2e95fdf56cc29a6ef8ce01deeee3fcc3217a7120",
+    "docs/experiments/test_order_history_collector.py": "c3ef943a45198ba512d4ec70077f02d0ae33d70cd0ad664cbbe18faf9794f506"
+  },
+  "variant": "timed",
+  "retry_limit": 2,
+  "seed": 17264554395344709815,
+  "latency_profile": "sampled-integer-20..220-ms",
+  "observation_wait_ms": 120,
+  "collector_started_at_utc": "2026-10-22T21:51:53.804Z",
+  "collector_completed_at_utc": "2026-10-22T21:52:07.245Z",
+  "summary": {
+    "planned_runs": 10,
+    "validated_runs": 10,
+    "first_attempt_pass": 5,
+    "recovered_after_retry": 3,
+    "final_fail": 2,
+    "total_attempts": 19,
+    "failed_attempts": 11,
+    "evidence_errors": 0
+  },
+  "exit_code": 1,
+  "runs": [
+    {
+      "run_id": "run-01",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:51:53.825Z",
+      "planned_delays_ms": [
+        73,
+        165,
+        200
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-01/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:51:54.996Z",
+      "process_duration_ms": 1170.42,
+      "status": "passed",
+      "initial_status": "passed",
+      "invocations": 1,
+      "test_retries_used": 0,
+      "jest_test_duration_ms": 301,
+      "jest_started_at_epoch_ms": 1792705914028
+    },
+    {
+      "run_id": "run-02",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:51:54.998Z",
+      "planned_delays_ms": [
+        153,
+        85,
+        184
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-02/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:51:56.321Z",
+      "process_duration_ms": 1322.723,
+      "status": "passed",
+      "initial_status": "failed",
+      "invocations": 2,
+      "test_retries_used": 1,
+      "jest_test_duration_ms": 192,
+      "jest_started_at_epoch_ms": 1792705915185
+    },
+    {
+      "run_id": "run-03",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:51:56.323Z",
+      "planned_delays_ms": [
+        123,
+        148,
+        65
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-03/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:51:57.842Z",
+      "process_duration_ms": 1519.16,
+      "status": "passed",
+      "initial_status": "failed",
+      "invocations": 3,
+      "test_retries_used": 2,
+      "jest_test_duration_ms": 155,
+      "jest_started_at_epoch_ms": 1792705916513
+    },
+    {
+      "run_id": "run-04",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:51:57.844Z",
+      "planned_delays_ms": [
+        208,
+        147,
+        203
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-04/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 1,
+      "runner_completed_at_utc": "2026-10-22T21:51:59.515Z",
+      "process_duration_ms": 1671.137,
+      "status": "failed",
+      "initial_status": "failed",
+      "invocations": 3,
+      "test_retries_used": 2,
+      "jest_test_duration_ms": 240,
+      "jest_started_at_epoch_ms": 1792705918036
+    },
+    {
+      "run_id": "run-05",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:51:59.518Z",
+      "planned_delays_ms": [
+        143,
+        180,
+        127
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-05/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 1,
+      "runner_completed_at_utc": "2026-10-22T21:52:01.089Z",
+      "process_duration_ms": 1571.234,
+      "status": "failed",
+      "initial_status": "failed",
+      "invocations": 3,
+      "test_retries_used": 2,
+      "jest_test_duration_ms": 163,
+      "jest_started_at_epoch_ms": 1792705919707
+    },
+    {
+      "run_id": "run-06",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:52:01.092Z",
+      "planned_delays_ms": [
+        20,
+        142,
+        48
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-06/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:52:02.260Z",
+      "process_duration_ms": 1168.233,
+      "status": "passed",
+      "initial_status": "passed",
+      "invocations": 1,
+      "test_retries_used": 0,
+      "jest_test_duration_ms": 312,
+      "jest_started_at_epoch_ms": 1792705921284
+    },
+    {
+      "run_id": "run-07",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:52:02.262Z",
+      "planned_delays_ms": [
+        114,
+        151,
+        43
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-07/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:52:03.433Z",
+      "process_duration_ms": 1170.982,
+      "status": "passed",
+      "initial_status": "passed",
+      "invocations": 1,
+      "test_retries_used": 0,
+      "jest_test_duration_ms": 307,
+      "jest_started_at_epoch_ms": 1792705922452
+    },
+    {
+      "run_id": "run-08",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:52:03.435Z",
+      "planned_delays_ms": [
+        151,
+        131,
+        68
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-08/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:52:04.953Z",
+      "process_duration_ms": 1517.776,
+      "status": "passed",
+      "initial_status": "failed",
+      "invocations": 3,
+      "test_retries_used": 2,
+      "jest_test_duration_ms": 157,
+      "jest_started_at_epoch_ms": 1792705923625
+    },
+    {
+      "run_id": "run-09",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:52:04.955Z",
+      "planned_delays_ms": [
+        77,
+        20,
+        211
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-09/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:52:06.074Z",
+      "process_duration_ms": 1118.513,
+      "status": "passed",
+      "initial_status": "passed",
+      "invocations": 1,
+      "test_retries_used": 0,
+      "jest_test_duration_ms": 305,
+      "jest_started_at_epoch_ms": 1792705925142
+    },
+    {
+      "run_id": "run-10",
+      "revision": "revision-01",
+      "retry_limit": 2,
+      "runner_started_at_utc": "2026-10-22T21:52:06.076Z",
+      "planned_delays_ms": [
+        77,
+        21,
+        67
+      ],
+      "command": [
+        "/opt/hostedtoolcache/node/24.14.0/x64/bin/node",
+        "/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/node_modules/jest/bin/jest.js",
+        "--config",
+        "jest.flaky.config.cjs",
+        "--runInBand",
+        "--no-cache",
+        "--json",
+        "--outputFile=/home/runner/work/eshop-sut-group10/eshop-sut-group10/backend/test-results/order-history/ci/raw/run-10/jest.json"
+      ],
+      "validation_error": null,
+      "process_exit_code": 0,
+      "runner_completed_at_utc": "2026-10-22T21:52:07.243Z",
+      "process_duration_ms": 1167.323,
+      "status": "passed",
+      "initial_status": "passed",
+      "invocations": 1,
+      "test_retries_used": 0,
+      "jest_test_duration_ms": 323,
+      "jest_started_at_epoch_ms": 1792705926272
+    }
+  ],
+  "files": {
+    "organizer": {
+      "path": "organizer-evidence-39860438568-1.zip",
+      "sha256": "14a9430304bb3a77571f968704d70db049f5f7c75a2ac4c0de7e89310085a1cc",
+      "source": "User-supplied GitHub artifact; bytes checked against GitHub API digest"
+    },
+    "participant": {
+      "path": "../../E-08/order-history-v2-39860438568/ai-skill/api-analysis-input-39860438568-1.zip",
+      "sha256": "21b71dddfaa046017db43ab647d1a472a57ae724722446efea569666c58792c5",
+      "source": "User-supplied GitHub artifact already archived with AI analysis; 43 file contents also match nested organizer analysis ZIP"
+    },
+    "job_logs": {
+      "path": "job-logs.zip",
+      "sha256": "a709bcfa8be32580907b481c4c25e7471c45cd5217fda781ecfe8ac53a2abcf3",
+      "source": "GitHub GET /actions/runs/39860438568/logs; downloaded without changing archive bytes"
+    }
+  },
+  "validation": {
+    "all_archives_crc_ok": true,
+    "public_file_count": 43,
+    "public_contents_match_nested_analysis_archive": true,
+    "event_bytes_and_attempt_records_match_original": true,
+    "native_jest_invocations_retry_reasons_status_and_duration_match": true,
+    "native_retry_reasons": 9,
+    "event_count": 526,
+    "http_response_count": 57,
+    "all_http_status_200": true,
+    "closed_fixtures": 19,
+    "source_hashes_verified_against_measured_git_commit": 13,
+    "evidence_errors": 0
+  },
+  "timing": {
+    "jest_process_window_seconds": 13.418,
+    "collector_window_seconds": 13.441,
+    "job_duration_seconds": 104,
+    "workflow_started_to_updated_seconds": 109,
+    "workflow_span_note": "updated_at is API metadata timestamp, not a dedicated completed_at field; distinct from job and collector durations"
+  }
+}

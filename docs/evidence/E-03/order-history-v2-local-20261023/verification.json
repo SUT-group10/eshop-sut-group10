@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "scope": "local implementation verification, not GitHub Actions measurement or independent triage",
+  "started_at_utc": "2026-10-22T19:58:08.329103+00:00",
+  "completed_at_utc": "2026-10-22T19:59:01.646086+00:00",
+  "latency_seed": "7353499394879107841",
+  "batches": [
+    {
+      "name": "control-low",
+      "exit_code": 0,
+      "summary": {
+        "planned_runs": 1,
+        "validated_runs": 1,
+        "first_attempt_pass": 1,
+        "recovered_after_retry": 0,
+        "final_fail": 0,
+        "total_attempts": 1,
+        "failed_attempts": 0,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 2.197,
+      "archive": "control-low.organizer-evidence.zip",
+      "console": "control-low.collector.log"
+    },
+    {
+      "name": "control-high",
+      "exit_code": 1,
+      "summary": {
+        "planned_runs": 1,
+        "validated_runs": 1,
+        "first_attempt_pass": 0,
+        "recovered_after_retry": 0,
+        "final_fail": 1,
+        "total_attempts": 3,
+        "failed_attempts": 3,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 2.777,
+      "archive": "control-high.organizer-evidence.zip",
+      "console": "control-high.collector.log"
+    },
+    {
+      "name": "timed-no-retry",
+      "exit_code": 1,
+      "summary": {
+        "planned_runs": 10,
+        "validated_runs": 10,
+        "first_attempt_pass": 7,
+        "recovered_after_retry": 0,
+        "final_fail": 3,
+        "total_attempts": 10,
+        "failed_attempts": 3,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 15.11,
+      "archive": "timed-no-retry.organizer-evidence.zip",
+      "console": "timed-no-retry.collector.log"
+    },
+    {
+      "name": "timed-retry2",
+      "exit_code": 1,
+      "summary": {
+        "planned_runs": 10,
+        "validated_runs": 10,
+        "first_attempt_pass": 7,
+        "recovered_after_retry": 2,
+        "final_fail": 1,
+        "total_attempts": 14,
+        "failed_attempts": 5,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 16.384,
+      "archive": "timed-retry2.organizer-evidence.zip",
+      "console": "timed-retry2.collector.log"
+    },
+    {
+      "name": "awaited-no-retry",
+      "exit_code": 0,
+      "summary": {
+        "planned_runs": 10,
+        "validated_runs": 10,
+        "first_attempt_pass": 10,
+        "recovered_after_retry": 0,
+        "final_fail": 0,
+        "total_attempts": 10,
+        "failed_attempts": 0,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 14.767,
+      "archive": "awaited-no-retry.organizer-evidence.zip",
+      "console": "awaited-no-retry.collector.log"
+    },
+    {
+      "name": "awaited-high",
+      "exit_code": 0,
+      "summary": {
+        "planned_runs": 1,
+        "validated_runs": 1,
+        "first_attempt_pass": 1,
+        "recovered_after_retry": 0,
+        "final_fail": 0,
+        "total_attempts": 1,
+        "failed_attempts": 0,
+        "evidence_errors": 0
+      },
+      "collector_duration_seconds": 2.076,
+      "archive": "awaited-high.organizer-evidence.zip",
+      "console": "awaited-high.collector.log"
+    }
+  ],
+  "checks": {
+    "same_latency_schedule": true,
+    "same_source_fingerprint": true,
+    "production_database_unchanged": true,
+    "production_database_sha256": "c63f00544180ba1fbb1427a9b9dd3f1784842698809972f33ce90482e7420ba6",
+    "collector_contract_tests": {
+      "command": "python -B -m unittest discover -s docs/experiments -p test_order_history_collector.py -v",
+      "tests": 7,
+      "passed": 7,
+      "exit_code": 0
+    },
+    "lint": {
+      "command": "npm run lint",
+      "exit_code": 0
+    },
+    "build": {
+      "command": "npm run build",
+      "sources": 18,
+      "exit_code": 0
+    },
+    "workflow_yaml_structure": "passed (PyYAML BaseLoader; no remote runner claim)",
+    "zip_integrity": "12 ZIPs checked; CRC valid; public events byte-identical to original event files"
+  },
+  "normal_suite": {
+    "command": [
+      "node",
+      "node_modules/jest/bin/jest.js",
+      "--runInBand",
+      "--detectOpenHandles",
+      "--json",
+      "--outputFile=<evidence>/normal-suite.results.json"
+    ],
+    "exit_code": 1,
+    "tests": 39,
+    "pass": 29,
+    "fail": 10,
+    "failures": [
+      "A-ACCESS-02",
+      "A-AUTH-03",
+      "A-CART-03",
+      "A-CHECKOUT-02",
+      "A-CHECKOUT-03",
+      "A-COUPON-05",
+      "A-COUPON-07",
+      "A-COUPON-09",
+      "A-ORDER-03",
+      "A-ORDER-04"
+    ],
+    "unchanged_known_failures": true,
+    "experiments_excluded": true,
+    "open_handles": 0,
+    "production_database_unchanged": true
+  },
+  "source": {
+    "source_commit": "115df94bcc548a7a67ce5903ac7f26bbaaf63984",
+    "source_worktree_status": "M .github/workflows/flaky-experiment.yml\n M backend/jest.flaky.config.cjs\n M backend/package.json\n?? backend/tests/experiments/order-history.case.js\n?? backend/tests/helpers/order-history-observer.js\n?? docs/experiments/order-history-protocol.md\n?? docs/experiments/run-order-history.py\n?? docs/experiments/test_order_history_collector.py",
+    "source_sha256": {
+      "backend/tests/experiments/order-history.case.js": "1079ebf22de094972a03989ed20b6a3dbd0868b1d8476ddc30b198edf942054d",
+      "backend/tests/helpers/order-history-observer.js": "b8e6992cf6e483b359e112f92aa05ad076cde8debb6de2abc3110d3a47b7d4f5",
+      "backend/tests/helpers/harness.js": "42feb27a4be5bc2f2736c094691584dd18b4aee0cc6d81ebfc845e55cb89f5be",
+      "backend/jest.flaky.config.cjs": "d89f9e63b9f08630702e698d96b7c15850726133c714eb1264fb459a861bdd01",
+      "backend/jest.config.cjs": "ee74e3a85561563ff00150de3e78e3246c9703743bf6bbebe7d072e7de82052b",
+      "backend/package.json": "3a3a8c3e5c6fa677d53a9b4fd3c9617bc3c9355a3a4cb1a4c6fdaf6080f66324",
+      "backend/package-lock.json": "07ebcbd6f2650d3f6494935c3cf214d18ea8cfd2765f535cae7f252b36cdbb03",
+      "backend/server.js": "b63e9cf6942c42b1857700de50b0ac304b757cd7de35676dcf5188186edefa3f",
+      "backend/database.js": "50012f35c2cf0776dd837482d76adf701f0ee40cdcb9d80143278fccde034717",
+      ".github/workflows/flaky-experiment.yml": "2f9621dbfaa9e60f722502feb05c609f09e469faafaa59f725ede9308b43d5a5",
+      "docs/experiments/run-order-history.py": "ea836de96bc2dacd36b2afcd6bcaad095f915804dd6db0632d7ccdab96531679",
+      "docs/experiments/order-history-protocol.md": "15443c2d93ece380397869425316144e0050d8518dbcf71ddef95f861970d1f4",
+      "docs/experiments/test_order_history_collector.py": "c449f841ac37baf5005c3581b671e2b41681eb0dbef254952336ecbaaf839dde"
+    },
+    "runtime": {
+      "node": "v24.14.0",
+      "jest": "30.5.2",
+      "python": "3.13.12",
+      "system": "Windows",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "npm_user_agent": null
+    }
+  },
+  "packaging_update": {
+    "checked_at_utc": "2026-10-22T20:50:12.536615+00:00",
+    "scope": "packaging change only; these diagnostic runs are excluded from sampled measurement",
+    "batches": [
+      {
+        "batch_id": "20261022T205008Z-7323a16f",
+        "archives": {
+          "analysis": "analysis-input-20261022T205008Z-7323a16f.zip",
+          "organizer": "organizer-evidence-20261022T205008Z-7323a16f.zip"
+        },
+        "same_leaf_output": "ci",
+        "existing_output_rejected": true,
+        "zip_integrity": true,
+        "events_preserved": true
+      },
+      {
+        "batch_id": "20261022T205010Z-cd68b4d1",
+        "archives": {
+          "analysis": "analysis-input-20261022T205010Z-cd68b4d1.zip",
+          "organizer": "organizer-evidence-20261022T205010Z-cd68b4d1.zip"
+        },
+        "same_leaf_output": "ci",
+        "existing_output_rejected": true,
+        "zip_integrity": true,
+        "events_preserved": true
+      }
+    ],
+    "same_output_basename_still_unique": true,
+    "contract_tests_passed": 8
+  }
+}

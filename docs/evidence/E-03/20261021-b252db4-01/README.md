@@ -1,5 +1,7 @@
 # E-03 — Đợt đo 20261021-b252db4-01
 
+> Đây là **evidence v1 — cart**: 10 dispatch trên revision đã chốt, không retry test. Log, ZIP và metadata bên dưới giữ nguyên phạm vi v1. [Protocol v2 hiện hành](../../../experiments/order-history-protocol.md).
+
 - **Protocol:** [E-02 v1.1](../../../experiments/flaky-test-protocol.md), revision `b252db4aa9e236b78879dfbbf7b882cdadb8580c`.
 - **Phiên bản đo:** `b252db4aa9e236b78879dfbbf7b882cdadb8580c`; branch `test/issue-5-flaky-experiment`; workflow `flaky-experiment.yml`.
 - **Kế hoạch chốt trước lượt đầu:** 10 dispatch mới, tuần tự, `sampled`, không retry test, không dùng rerun/rehearsal làm mẫu.

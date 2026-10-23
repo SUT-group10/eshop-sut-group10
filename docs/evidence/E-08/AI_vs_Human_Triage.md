@@ -1,12 +1,14 @@
 # E-08 — So sánh phân tích thủ công và Codex dùng skill
 
+> Báo cáo này đánh giá **thí nghiệm v1 — cart**. Kết quả, thời lượng Vượng 20 phút/Sol 90 giây và review được giữ theo v1; không gán chúng cho dữ liệu order history v2. [Protocol v2 hiện hành](../../experiments/order-history-protocol.md).
+
 Ngày đánh giá: 22/10/2026. Đối tượng: 10 lượt API test giỏ hàng của bộ E-05, cùng bí danh revision-01.
 
 ## 1. Kết quả chính
 
 **Vượng và Codex GPT-6.1 Sol cùng nhận diện vấn đề thứ tự: ở 5 lượt FAIL, giỏ đã được đọc xong trước khi thao tác thêm được gửi; ở 5 lượt PASS, thêm hoàn tất trước khi đọc.** Cả hai đề xuất kiểm tra cách điều phối thêm/đọc và chưa coi nguyên nhân mã cụ thể là đã được xác nhận bằng thực nghiệm sửa lỗi.
 
-Sự đồng thuận là kết quả hợp lệ. Lượt AI này bổ sung bảng timing đầy đủ và lưu ý về ý nghĩa timestamp, chưa chứng minh AI tốt hơn người về tốc độ hoặc độ chính xác. Không ép tìm lỗi AI để tạo khác biệt.
+Sự đồng thuận là kết quả hợp lệ. Lượt AI này cung cấp bảng timing đầy đủ và lưu ý về ý nghĩa timestamp. Thời lượng hoàn thiện là 20 phút cho Vượng và 1 phút 30 giây cho Sol; phép đối chiếu chưa đo toàn bộ công sức review hoặc chứng minh ưu thế độ chính xác. Không ép tìm lỗi AI để tạo khác biệt.
 
 ## 2. Dữ liệu, công cụ và cách đánh giá
 
@@ -21,7 +23,7 @@ Sự đồng thuận là kết quả hợp lệ. Lượt AI này bổ sung bản
 
 Báo cáo do AI hỗ trợ tổng hợp và đối chiếu hai bản đã được cung cấp; không tạo lại câu trả lời của người hoặc chạy lại AI triage. Giữ nguyên các bản gốc, kể cả phát biểu cần làm rõ. Chỉ đánh giá một output AI đã nhận, không tự suy ra tổng số lần thử hay việc đây là lần thử đầu tiên.
 
-Đánh giá định tính theo cùng năm tiêu chí của E-08: nguyên nhân, bằng chứng, bước kiểm tra, thời gian và suy diễn. Không tự chấm điểm số khi nhóm chưa có thang điểm định lượng. Vượng đã review báo cáo theo xác nhận của người dùng. Hồ sơ chưa có thời gian phân tích và xác nhận thứ tự hoàn thành E-04 trước khi xem AI; không tự bổ sung hai dữ kiện này.
+Đánh giá định tính theo cùng năm tiêu chí của E-08: nguyên nhân, bằng chứng, bước kiểm tra, thời gian và suy diễn. Không tự chấm điểm số khi nhóm chưa có thang điểm định lượng. Vượng đã review báo cáo theo xác nhận của người dùng. Vượng hoàn thiện bản phân tích trong 20 phút, trước khi xem output Sol. Lượt phân tích Sol có thời lượng 1 phút 30 giây.
 
 Đã đối chiếu 40 giá trị timing và kết quả 10 lượt trong dữ liệu chuẩn hóa với metadata E-03: khớp. Việc đối chiếu bản đã lưu không thay cho export phiên gốc hoặc chứng minh toàn bộ tài nguyên AI đã truy cập.
 
@@ -33,7 +35,7 @@ Báo cáo do AI hỗ trợ tổng hợp và đối chiếu hai bản đã đư�
 | Phạm vi giả thuyết | H1 thứ tự, H2 hai cụm độ trễ, H3 backend/môi trường yếu | Một giả thuyết chính; không thêm cache/database khi chưa có bằng chứng | Vượng tách rõ yếu tố gây biến thiên; AI tập trung hơn. Số giả thuyết nhiều hơn không tự tốt hơn |
 | Bằng chứng | Khoảng timing hai nhóm, L016/L021, assertion, comment cleanup và metadata | Timing từng run, L016/L021, assertion, HTTP status, invocation/retry, timestamp history/Jest | Cả hai dẫn được dấu vết chính; AI trình bày chi tiết hơn ở bảng từng run |
 | Bước kiểm tra | Rà điều phối; bổ sung log client/server; thử hai thứ tự khoảng 20 lần mỗi kiểu | Rà điều phối; thử thay đổi thứ tự; đọc lại sau khi thêm xong | Cùng có ba bước khả thi để đề xuất. Chưa bên nào thực hiện chúng trong hồ sơ này |
-| Thời gian | File bàn giao không có thời gian bắt đầu/kết thúc hoặc tổng thời lượng | Metadata không có thời gian bắt đầu/kết thúc hoặc thời lượng | Không đo được chênh lệch, không kết luận bên nào nhanh hơn |
+| Thời gian | 20 phút | 1 phút 30 giây (90 giây) | Thời lượng AI ngắn hơn trong ca này; chưa tính công sức review và xác minh |
 | Suy diễn và mức chắc chắn | Có phân hạng H1–H3, nhưng dùng comment để suy ra thiếu await hơi mạnh | Không khẳng định thiếu await/timer cụ thể; lưu ý dữ liệu thiếu | AI giữ giới hạn tốt hơn ở chi tiết implementation; cả hai vẫn cần kiểm chứng |
 
 ## 4. Kiểm tra dẫn chứng và những điểm cần làm rõ
@@ -74,10 +76,10 @@ H1 của hai bên phù hợp cơ chế đó. H2 của Vượng nhận ra hai c�
 
 **Nhiễu/rủi ro cụ thể trong output:** yêu cầu giữ revision khi thay thứ tự chưa nêu cách tổ chức thay đổi; phỏng đoán timestamp workflow là timestamp job nếu được chép lại như kết luận sẽ gây hiểu nhầm. Đây là các điểm cần review, không làm sai kết luận timing chính. Không quan sát thấy trong output này việc bịa lỗi mạng/database hay bịa số liệu. Không lấy các failure modes giả định đó làm lỗi thực tế để đủ E-10.
 
-**Giới hạn phép so sánh:** một ca có chủ đích, đủ log timing và hai cụm độ trễ rõ ràng; một output AI đã được bàn giao; thiếu số đo thời gian và xác nhận trình tự thực hiện. Không kết luận về mọi CI log, không chứng minh skill này vượt ba ứng viên chưa thử và không khẳng định nhân quả “nhờ skill nên AI đúng” khi chưa có lượt đối chứng không dùng skill.
+**Giới hạn phép so sánh:** một ca có chủ đích, đủ log timing và hai cụm độ trễ rõ ràng; một output AI đã được bàn giao; Vượng hoàn thiện trong 20 phút, trước khi xem Sol; thời lượng Sol là 1 phút 30 giây. Chưa đo toàn bộ thời gian review và xác minh. Không kết luận về mọi CI log, không chứng minh skill này vượt ba ứng viên chưa thử và không khẳng định nhân quả “nhờ skill nên AI đúng” khi chưa có lượt đối chứng không dùng skill.
 
 ## 7. Kết luận và trạng thái
 
 Đã hoàn thành bản đối chiếu nội dung theo năm tiêu chí E-08. Hai bên đồng thuận nguyên nhân chính và đều đưa được bước xác minh. AI mạnh ở trình bày bảng chi tiết và giữ giới hạn implementation; Vượng bổ sung phân tích hai cụm độ trễ và các khả năng phụ có phân hạng.
 
-Vượng đã review theo xác nhận của người dùng. Chốt E-08 với kết quả so sánh nội dung nêu trên; thời gian ghi là không đủ dữ liệu nên không kết luận tốc độ. Thứ tự manual-before-AI chưa có xác nhận trong hồ sơ và được giữ là giới hạn phép so sánh. Không dựng lại hoặc ước lượng thời gian đã mất. Bằng chứng gốc E-04 và output ai-sol được giữ nguyên.
+Vượng đã review theo xác nhận của người dùng. Chốt E-08 với kết quả so sánh nội dung nêu trên. Vượng phân tích trước khi xem Sol, thời lượng 20 phút; Sol hoàn thiện trong 1 phút 30 giây. Không dùng chênh lệch một ca để kết luận năng suất tổng thể hoặc chất lượng chẩn đoán trên mọi CI log. Bản phân tích E-04 và output ai-sol được lưu riêng để đối chiếu.

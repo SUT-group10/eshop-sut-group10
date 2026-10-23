@@ -2,12 +2,27 @@ name: Flaky experiment (manual only)
 
 on:
   workflow_dispatch:
+    inputs:
+      variant:
+        description: 'Synchronization variant (organizer only)'
+        type: choice
+        options: [timed, awaited]
+        default: timed
+      runs:
+        description: 'Independent Jest processes (1-50)'
+        type: string
+        default: '10'
+      retries:
+        description: 'Retries after the initial failed attempt'
+        type: choice
+        options: ['2', '0']
+        default: '2'
 
 permissions:
   contents: read
 
 jobs:
-  cart-timing:
+  order-history:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
     defaults:
@@ -29,18 +44,29 @@ jobs:
           git rev-parse HEAD
           node --version
           npm --version
-      - name: Run one sampled attempt (failure is an experimental result)
+          python --version
+      - name: Run independent tests and retain every retry
         env:
-          FLAKE_LATENCY_MODE: sampled
+          EXPERIMENT_VARIANT: ${{ inputs.variant || 'timed' }}
+          EXPERIMENT_RUNS: ${{ inputs.runs || '10' }}
+          EXPERIMENT_RETRIES: ${{ inputs.retries || '2' }}
         run: |
-          mkdir -p test-results/flaky
-          set -o pipefail
-          npm run test:flaky -- --json --outputFile=test-results/flaky/results.json 2>&1 | tee test-results/flaky/console.log
-      - name: Upload attempt results, including failures
+          python ../docs/experiments/run-order-history.py \
+            --variant "$EXPERIMENT_VARIANT" --runs "$EXPERIMENT_RUNS" \
+            --retries "$EXPERIMENT_RETRIES" --output test-results/order-history/ci
+      - name: Upload analysis packet (safe to hand to analysts)
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v6
         with:
-          name: flaky-${{ github.run_id }}-${{ github.run_attempt }}
-          path: backend/test-results/flaky/
+          name: api-analysis-input-${{ github.run_id }}-${{ github.run_attempt }}
+          path: backend/test-results/order-history/ci/participant/
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 90
+      - name: Upload original evidence and organizer controls
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: organizer-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: backend/test-results/order-history/ci/organizer-evidence-*.zip
+          if-no-files-found: warn
+          retention-days: 90

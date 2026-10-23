@@ -1,5 +1,7 @@
 # E-02 — Protocol thí nghiệm flaky test
 
+> Protocol này thuộc **thí nghiệm v1 — cart**, áp dụng revision và workflow tại đợt đo đã ghi. Các lệnh/cấu hình trong tài liệu là lịch sử; `test:flaky` hiện chọn v2. [Protocol v2 hiện hành](order-history-protocol.md).
+
 Phiên bản 1.1 — cập nhật ngày 21/10/2026. Người phụ trách: Trần Quốc Vỹ; Dương hỗ trợ thao tác CI khi cần.
 
 ## 1. Mục tiêu và căn cứ

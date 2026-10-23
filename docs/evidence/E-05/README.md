@@ -1,5 +1,7 @@
 # E-05 — Hướng dẫn chuẩn bị và bàn giao dữ liệu
 
+> Trang này và `participant-input.zip` thuộc **thí nghiệm v1 — cart**. Hướng dẫn bàn giao bên dưới áp dụng gói v1; v2 tự xuất gói `analysis-input-<batch-id>.zip` từ bộ chạy mới. ZIP và dữ liệu chuẩn hóa v1 được giữ nguyên. [Protocol v2 hiện hành](../../experiments/order-history-protocol.md).
+
 Tài liệu này dành cho người chuẩn bị và bàn giao dữ liệu, không gửi cho Vượng hoặc GPT. README nằm bên trong ZIP là tài liệu khác: chỉ cung cấp bối cảnh chung để đọc log, không chứa đáp án.
 
 ## File gửi cho Vượng và GPT

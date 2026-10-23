@@ -176,6 +176,20 @@ Các lệnh test trả mã lỗi khi assertion không đạt. Những lỗi nghi
 
 Xem [sơ đồ harness và các nhánh lỗi](docs/architecture/test-harness.md) để hiểu cách nguồn test, fixture, runner, log/coverage và quality gate kết nối với nhau.
 
+### 5.1. Thí nghiệm flaky hiện hành — v2
+
+V2 dùng luồng đặt hàng và đọc lịch sử đơn hàng, tách khỏi suite chính. Cần Python 3 bên cạnh Node và dependency backend. Từ thư mục `backend`, chạy trong PowerShell:
+
+```powershell
+python --version
+npm run experiment:orders -- --runs 10 --retries 2
+$LASTEXITCODE
+```
+
+Mặc định là `timed`: tối đa hai retry sau lần fail đầu, tức tối đa ba attempt; mỗi attempt có app và SQLite trong RAM riêng. Chế độ `awaited` dùng kiểm chứng bản sửa trong một batch khác, chọn `--variant awaited --retries 0`. Retry không tự chuyển chế độ.
+
+Bộ chạy in thư mục kết quả và tên `analysis-input-<batch-id>.zip` để bàn giao; `organizer-evidence-<batch-id>.zip` giữ nguồn đầy đủ và tham số thiết kế. Chi tiết exit code, cách chạy GitHub Actions, clock và đóng gói nằm trong [protocol v2](docs/experiments/order-history-protocol.md); số liệu đã chạy nằm trong [evidence local v2](docs/evidence/E-03/order-history-v2-local-20261023/README.md). Kết quả v1 được giữ theo phiên bản cũ; hướng dẫn E-01/E-09 lịch sử không mô tả hành vi hiện tại của `test:flaky`.
+
 `run_servers.sh` dùng đường dẫn tuyệt đối trên máy macOS của tác giả và `killall node`. Script chưa dùng được nguyên bản trên Windows và có thể dừng tiến trình Node không thuộc dự án. Dùng các terminal và lệnh riêng trong hướng dẫn này.
 
 ## 6. Kết quả kiểm chứng B-01

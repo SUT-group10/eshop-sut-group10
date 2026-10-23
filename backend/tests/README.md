@@ -1,6 +1,8 @@
 # Bộ kiểm thử và hướng dẫn chạy EShop — B-02–B-05
 
-Test thí nghiệm E-01 chạy riêng bằng `npm run test:flaky`; xem [cơ chế và hướng dẫn chạy](experiments/README.md). Test này không nằm trong bộ test chính dưới đây.
+Thí nghiệm flaky hiện hành là **v2 — order history**, chạy riêng bằng `npm run experiment:orders -- --runs 10 --retries 2` từ `backend`; xem [hướng dẫn](experiments/README.md), [protocol v2](../../docs/experiments/order-history-protocol.md) và [bằng chứng local](../../docs/evidence/E-03/order-history-v2-local-20261023/README.md). `npm run test:flaky` hiện chọn test v2 để chạy trực tiếp một tiến trình Jest. Experiment không nằm trong bộ test nghiệp vụ bên dưới; số test của bộ chính không tăng vì thêm v2.
+
+Các kết quả cart, gói E-05 và so sánh Vượng/Sol đã lưu thuộc **v1**. V2 đã có kiểm chứng local; kết quả CI và phân tích người–AI v2 sẽ được lưu riêng khi thực hiện.
 
 ## Phạm vi và lý do chọn
 

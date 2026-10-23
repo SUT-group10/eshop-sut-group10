@@ -5,8 +5,8 @@
 - **Họ và tên sinh viên:** Trần Quốc Vỹ
 - **MSSV:** 23120410
 - **Nhóm / Đề tài:** Nhóm 10 — T07: CI/CD & Test-Harness Engineering
-- **Thời gian:** 19–22/10/2026.
-- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10.
+- **Thời gian:** 19–23/10/2026.
+- **Phạm vi:** Triển khai và kiểm chứng E-01; xây dựng protocol và rehearsal E-02; chạy và thu dữ liệu thí nghiệm E-03; chuẩn hóa đầu vào phân tích E-05; khảo sát phương pháp và so sánh người–AI E-06–E-08; sửa đồng bộ và chốt đánh giá E-09–E-10; nâng cấp thí nghiệm flaky v2 với retry history, log từng attempt và đóng gói dữ liệu.
 
 ## 1. Trạng thái sử dụng AI trong tuần
 
@@ -17,7 +17,7 @@
 
 | Công cụ | Model | Mục đích | Đóng góp ước tính |
 | --- | --- | --- | --- |
-| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03, E-05 và E-06–E-10 | Chưa ước tính thành tỷ lệ phần trăm |
+| ChatGPT / Codex | Chưa xác định từ thông tin phiên | Hỗ trợ E-01, E-02, E-03, E-05, E-06–E-10 và nâng cấp thí nghiệm v2 | Chưa ước tính thành tỷ lệ phần trăm |
 | Codex | GPT-6.1 Sol, theo xác nhận | Phân tích log bằng skill, output được bàn giao để so sánh E-08 | Chưa ước tính thành tỷ lệ phần trăm |
 
 ## 3. Quá trình sử dụng AI
@@ -70,6 +70,14 @@
 
 **Kết quả:** Trước sửa tái hiện lỗi; sau sửa 12/12 lượt PASS, lint/build đạt. Giả thuyết chính được hỗ trợ qua kiểm chứng; E-10 đóng theo quyết định nhóm, không ghi nhận đủ ba failure modes thực tế.
 
+### 3.7. Nâng cấp thí nghiệm flaky v2
+
+**Phần AI hỗ trợ:** Thiết kế lại thí nghiệm đặt hàng–lịch sử đơn hàng, bổ sung retry tối đa 2 lần, log từng attempt, bộ thu thập/đóng gói dữ liệu, protocol, workflow và hướng dẫn v2.
+
+**Human Oversight:** Yêu cầu thiết kế mới để đáp ứng retry history; tiếp tục chất vấn độ phức tạp, database thật và chi phí chạy. Làm rõ timed/awaited, gói gửi phân tích và việc giữ v1; yêu cầu sửa tên ZIP tránh trùng và đồng bộ tài liệu theo v2.
+
+**Kết quả:** AI kiểm chứng local: timed không retry 7 PASS/3 FAIL; retry=2 đạt 9 PASS/1 FAIL, gồm 2 run phục hồi, tổng 14 attempt; awaited không retry 10/10 PASS. Kiểm tra bộ thu thập/đóng gói đạt 8/8. Bằng chứng v2 được lưu riêng; kết quả và phân tích v1 được giữ nguyên.
+
 ## 4. Chatlog và minh chứng
 
 - **Hội thoại và diễn biến:** [chatlog.md](chatlog.md).
@@ -88,6 +96,8 @@
 
 - **E-09–E-10:** [kiểm chứng trước/sau](../../../evidence/E-09/README.md), [kết quả các lượt](../../../evidence/E-09/verification.json), [kết luận E-10](../../../evidence/E-10/README.md).
 
+- **Thí nghiệm v2:** [chatlog đợt nâng cấp](chatlog.md#flaky-v2), [protocol](../../../experiments/order-history-protocol.md), [bằng chứng local](../../../evidence/E-03/order-history-v2-local-20261023/README.md), [dữ liệu kiểm chứng](../../../evidence/E-03/order-history-v2-local-20261023/verification.json).
+
 ## 5. Cam kết
 
 Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiểm tra, yêu cầu chỉnh sửa; phân biệt kết quả local với CI/review. Người khai báo chịu trách nhiệm kiểm tra nội dung trước khi nộp.
@@ -105,3 +115,5 @@ Khai báo đúng phần AI hỗ trợ và phần tham gia qua trao đổi, kiể
 *Cập nhật E-06–E-08:* 22/10/2026.
 
 *Cập nhật E-09–E-10:* 22/10/2026.
+
+*Cập nhật thí nghiệm v2:* 23/10/2026.

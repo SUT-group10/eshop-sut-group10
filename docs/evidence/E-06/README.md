@@ -1,5 +1,7 @@
 # E-06 — Khảo sát và chọn phương pháp phân tích log CI
 
+> Việc khảo sát/chọn phương pháp được thực hiện trong **đợt v1**. Skill log-only vẫn có thể dùng cho v2; các ví dụ, dữ liệu và output Sol được dẫn trong báo cáo này thuộc v1, không phải kết quả triage v2. [Protocol v2 hiện hành](../../experiments/order-history-protocol.md).
+
 Ngày hoàn thiện: 22/10/2026. Đây là phần phương pháp dùng cho báo cáo `AI_vs_Human_Triage`: tìm nguồn, đánh giá độ phù hợp và lưu bản skill đã điều chỉnh. Không coi việc chọn phương pháp là bằng chứng nó tốt nhất về hiệu quả thực nghiệm.
 
 ## 1. Phương pháp được chọn

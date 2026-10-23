@@ -12,6 +12,7 @@
     "test:smoke": "jest --runInBand tests/smoke",
     "test:harness": "jest --runInBand tests/harness",
     "test:flaky": "jest --config jest.flaky.config.cjs --runInBand",
+    "experiment:orders": "python ../docs/experiments/run-order-history.py",
     "test:isolation": "node scripts/verify-isolation.cjs",
     "test:coverage": "jest --runInBand --coverage",
     "test:ci": "jest --ci --runInBand --coverage --reporters=default --reporters=jest-junit"

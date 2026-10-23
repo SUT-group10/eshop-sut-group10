@@ -1,5 +1,9 @@
 # E-09 — Sửa đồng bộ và kiểm chứng trước/sau
 
+> **Bản hiện hành:** [E-09 order history v2 — xác nhận trên CI](order-history-v2-ci-39911447981/README.md), 10/10 PASS không retry. Nội dung cart bên dưới giữ phạm vi v1.
+
+> Đây là kiểm chứng sửa **thí nghiệm v1 — cart**. Các lệnh bên dưới áp dụng bản sửa tại commit `3a6290defb626f4bd41c53620c2a253d27e235c5`, trên checkout riêng; `test:flaky` ở bản hiện hành đã chuyển sang v2. Log, JSON, patch và kết quả 12/12 lượt của v1 giữ nguyên. [Protocol v2 hiện hành](../../experiments/order-history-protocol.md).
+
 Ngày chạy: 22/10/2026. AI thực hiện kiểm chứng local trên Windows, Node v24.14.0, npm 11.21.0. Base revision: `f057ac453c3221eb7aba4f238b96e40e2e3af078`; các lượt sau sửa chạy với thay đổi local được lưu trong [fix.patch](fix.patch). Không gán kết quả này cho bản mã cũ hoặc cho CI.
 
 Commit chứa bản sửa test: `3a6290defb626f4bd41c53620c2a253d27e235c5`. Kết quả đã được chạy trước khi commit; nội dung test trong commit khớp bản đã kiểm chứng.
