@@ -85,6 +85,15 @@ jobs:
             --json \
             --outputFile=test-results/jest-report.json
 
+      - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v5
+        with:
+          files: backend/coverage/cobertura-coverage.xml
+          flags: backend
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
       - name: Upload coverage and test report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
