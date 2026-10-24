@@ -90,6 +90,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: backend/coverage/cobertura-coverage.xml
+          disable_search: true
           flags: backend
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
