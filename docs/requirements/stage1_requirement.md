@@ -5,3 +5,4 @@ At least three candidate tools: 1 traditional, 1 AI-augmented, 1 backup.
 Comparison matrix on five criteria: licence cost, learning curve, EShop fit, AI capability, community.
 Recommended pick + 3-bullet rationale.
 AI Disclosure: which AI you used to research, and what you cross-checked.
+ 
