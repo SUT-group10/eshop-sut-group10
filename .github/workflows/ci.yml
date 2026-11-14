@@ -125,14 +125,19 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+         
+      - name: Set lowercase repository owner
+       # Đặt ID để các step sau có thể gọi chính xác đầu ra của step này
+        id: format_owner
+        run: echo "owner_lc=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+      
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
-          # Gắn tag image theo tên dự án và mã SHA của commit để định danh tuyệt đối
-          tags: ghcr.io/${{ env.OWNER_LC }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ env.OWNER_LC }}/eshop-backend:latest
+          # Gọi lại giá trị owner_lc từ output của step có id là format_owner
+          tags: ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:latest
   # Khâu 2: Continuous Delivery - Triển khai lên Staging
   deploy_staging:
     name: Deploy to Local Windows Runner
