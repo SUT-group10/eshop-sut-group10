@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 concurrency:
   group: backend-ci-${{ github.workflow }}-${{ github.ref }}
@@ -106,3 +107,77 @@ jobs:
             backend/coverage/cobertura-coverage.xml
             backend/coverage/coverage-summary.json
             backend/test-results/jest-report.json
+  # Khâu 1: Build Artifact thành Docker Image
+  build_image:
+    name: Build and Push Docker Image
+    needs: quality
+    # Chỉ build image khi code được push vào nhánh main (merge PR)
+    if: github.event_name == 'pull_request' # && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+         
+      - name: Set lowercase repository owner
+       # Đặt ID để các step sau có thể gọi chính xác đầu ra của step này
+        id: format_owner
+        run: echo "owner_lc=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+      
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          # Gọi lại giá trị owner_lc từ output của step có id là format_owner
+          tags: ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:latest
+  # Khâu 2: Continuous Delivery - Triển khai lên Staging
+  deploy_staging:
+    name: Deploy to Local Windows Runner
+    needs: build_image
+    # Rất quan trọng: Trỏ trực tiếp về Self-hosted runner (máy Windows của bạn)
+    runs-on: self-hosted
+    environment: staging
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull and Run Docker Container on Windows
+        shell: powershell
+        run: |
+          # 1. Chuyển đổi tên owner sang chữ thường
+          $OWNER_LC = "${{ github.repository_owner }}".ToLower()
+          $IMAGE_URL = "ghcr.io/$OWNER_LC/eshop-backend:${{ github.sha }}"
+
+          # 2. Tải Image mới nhất từ GHCR về Docker Desktop
+          docker pull $IMAGE_URL
+
+          # 3. Dừng và xóa container cũ (bỏ qua lỗi nếu chưa tồn tại)
+          docker stop eshop-backend-staging 2>$null
+          docker rm eshop-backend-staging 2>$null
+
+          # 4. Khởi chạy container mới trên cổng 3000
+          docker run -d `
+            --name eshop-backend-staging `
+            --restart unless-stopped `
+            -p 3000:3000 `
+            -e NODE_ENV="staging" `
+            $IMAGE_URL
+
+          # 5. Dọn dẹp image cũ để giải phóng ổ cứng
+          docker image prune -af
