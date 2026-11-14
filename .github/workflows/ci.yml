@@ -155,30 +155,26 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull and Run Docker Container on Windows
-        shell: pwsh
+        shell: powershell
         run: |
-          # 1. Xử lý lỗi chữ hoa/thường: Chuyển đổi tên owner sang chữ thường bằng PowerShell
+          # 1. Chuyển đổi tên owner sang chữ thường
           $OWNER_LC = "${{ github.repository_owner }}".ToLower()
-          
-          # 2. Cập nhật lại biến IMAGE_URL với chuỗi đã được viết thường
           $IMAGE_URL = "ghcr.io/$OWNER_LC/eshop-backend:${{ github.sha }}"
-          
-          # Tải Image mới nhất từ GHCR về Docker Desktop
+
+          # 2. Tải Image mới nhất từ GHCR về Docker Desktop
           docker pull $IMAGE_URL
-          
-          # Dừng và xóa container cũ (2>$null giúp PowerShell bỏ qua lỗi nếu container chưa tồn tại)
+
+          # 3. Dừng và xóa container cũ (bỏ qua lỗi nếu chưa tồn tại)
           docker stop eshop-backend-staging 2>$null
           docker rm eshop-backend-staging 2>$null
-          
-          # Khởi chạy container mới (dùng dấu ` để xuống dòng trong PowerShell)
-          # Lưu ý: Port backend EShop mặc định là 3000
+
+          # 4. Khởi chạy container mới trên cổng 3000
           docker run -d `
             --name eshop-backend-staging `
             --restart unless-stopped `
             -p 3000:3000 `
             -e NODE_ENV="staging" `
-            -e DATABASE_URL="${{ secrets.STAGING_DATABASE_URL }}" `
             $IMAGE_URL
-            
-          # Dọn dẹp image cũ để tránh đầy ổ cứng
+
+          # 5. Dọn dẹp image cũ để giải phóng ổ cứng
           docker image prune -af
