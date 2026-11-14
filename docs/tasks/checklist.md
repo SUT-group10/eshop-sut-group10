@@ -51,18 +51,33 @@ Phần test cần đủ để minh họa **kỹ nghệ harness và CI/CD**, khô
 
 ## E. Thí nghiệm flaky test và AI triage
 
+**Bản hiện hành: v2 — order history.** Cách chạy và tiêu chí nằm trong [protocol v2](../experiments/order-history-protocol.md); đã có [evidence local](../evidence/E-03/order-history-v2-local-20261023/README.md), [batch CI](../evidence/E-03/order-history-v2-ci-39860438568/README.md) và [đối chiếu người–AI v2](../evidence/E-08/order-history-v2-39860438568/AI_vs_Human_Triage.md). Các kết quả v1 phía dưới tiếp tục được giữ theo đúng đợt; không dùng chúng để xác nhận CI hoặc triage v2.
+
+### Đợt nâng cấp v2
+
+- [x] **E-01/E-02/E-05:** triển khai ca order history, chốt protocol, retry tối đa 2 lần, log từng attempt và tự xuất ZIP phân tích/organizer riêng.
+- [x] **E-03/E-09 — kiểm chứng local:** sampled trước/sau sửa, đối chứng retry và các ca độ trễ cố định; native Jest retry khớp ledger. Xem [kết quả local](../evidence/E-03/order-history-v2-local-20261023/README.md).
+- [x] **E-03 — đo CI v2:** [batch 39860438568](../evidence/E-03/order-history-v2-ci-39860438568/README.md), `timed`, 10 tiến trình Jest, retry=2 trên `52e4006`; đủ URL/runtime/log/artifact và 19 attempt. Lần đầu 5 pass/5 fail, 3 phục hồi, cuối 8 pass/2 fail; không evidence error.
+- [x] **E-04/E-05/E-08:** đã lưu [Vượng tự phân tích, 20 phút, trước khi xem AI](../evidence/E-04/order-history-v2-39860438568/README.md), [output GPT-6.1 Sol](../evidence/E-08/order-history-v2-39860438568/ai-skill/README.md) và [đối chiếu năm tiêu chí](../evidence/E-08/order-history-v2-39860438568/AI_vs_Human_Triage.md). Review qua PR; 39 giây của AI chỉ đến mốc chốt bằng chứng, chưa dùng làm thời gian hoàn thiện.
+- [x] **E-09 — xác nhận CI:** [run 39911447981](../evidence/E-09/order-history-v2-ci-39911447981/README.md), `awaited`, 10/10 PASS ngay lần đầu, retry=0, không evidence error; cả 10 trace có POST hoàn tất trước khi gửi GET history.
+- [x] **E-10 — đánh giá AI v2:** [kết luận và ba failure modes](../evidence/E-10/order-history-v2-39860438568/README.md): nhầm phạm vi thời gian, bỏ failure trước retry, xác nhận nguyên nhân quá mức. Phân biệt nhãn dễ gây hiểu nhầm đã xuất hiện với rủi ro Sol đã tránh; không coi là ba lần AI chẩn đoán sai.
+
+### Kết quả v1 — đã chốt theo phạm vi từng task
+
+Checkbox trong bảng này ghi trạng thái **v1**, gồm các ngoại lệ nhóm đã chốt; không phải trạng thái của đợt nâng cấp v2. Các báo cáo Vượng/Sol, thời lượng 20 phút/90 giây và bản sửa cart đều thuộc v1.
+
 | Mã Task | Checklist | Người thực hiện | Bằng chứng hoàn thành |
 |:---:|---|---|---|
-| **E-01** | [ ] Tạo một flaky test do timing/sleep có nguyên nhân đã biết; đặt trên nhánh hoặc workflow thí nghiệm riêng | Vỹ | Commit tạo flake và mô tả root cause |
-| **E-02** | [ ] Định nghĩa trước cách chạy, điều kiện thành công/thất bại và dữ liệu cần thu; tránh sửa test giữa các lần đo | Vỹ | Protocol thí nghiệm |
-| **E-03** | [ ] Chạy **ít nhất 10 lần độc lập**, lưu commit SHA, thời gian, kết quả, run URL, raw log và retry history | Vỹ; Dương hỗ trợ CI | Bảng 10 run kèm nguồn gốc từng run |
-| **E-04** | [ ] Phân tích thủ công **trước khi xem kết quả AI**; ghi thời gian, giả thuyết, dòng log hỗ trợ, bước kiểm tra | Vượng | Bản manual triage có dấu thời gian |
-| **E-05** | [ ] Chuẩn hóa dữ liệu đưa cho ChatGPT: cùng log và lịch sử chạy; loại bí mật/thông tin cá nhân | Vỹ | Input và prompt được lưu nguyên bản |
-| **E-06**| [ ] Tìm kiếm và đề xuất 1 prompt patterns / SKILLS phân tích log CI từ Github repo, diễn đàn DevOps hoặc bài báo học thuật để chọn ra kỹ thuật tối ưu nhất (ví dụ: Chain-of-Thought, Few-Shot Prompting) | Vỹ, Vượng, Dương / prompt/SKILLS| Báo cáo `AI_vs_Human_Triage` |.
+| **E-01** | [x] Tạo một flaky test do timing/sleep có nguyên nhân đã biết; đặt trên nhánh hoặc workflow thí nghiệm riêng | Vỹ | Commit tạo flake và mô tả root cause |
+| **E-02** | [x] Định nghĩa trước cách chạy, điều kiện thành công/thất bại và dữ liệu cần thu; tránh sửa test giữa các lần đo | Vỹ | Protocol thí nghiệm |
+| **E-03** | [x] Chạy **ít nhất 10 lần độc lập**, lưu commit SHA, thời gian, kết quả, run URL, raw log và retry history | Vỹ; Dương hỗ trợ CI | [Bảng 10 run](../evidence/E-03/20261021-b252db4-01/README.md) kèm nguồn gốc từng run |
+| **E-04** | [x] Phân tích thủ công **trước khi xem kết quả AI**; ghi thời gian, giả thuyết, dòng log hỗ trợ, bước kiểm tra | Vượng | [Bản phân tích của Vượng](../evidence/E-04/phan-tich-vuong.md); 20 phút, hoàn thiện trước khi xem Sol |
+| **E-05** | [x] Chuẩn hóa dữ liệu đưa cho ChatGPT: cùng log và lịch sử chạy; loại bí mật/thông tin cá nhân | Vỹ | [Input và prompt chuẩn hóa](../evidence/E-05/README.md) được lưu nguyên bản |
+| **E-06**| [x] Tìm kiếm và đề xuất 1 prompt patterns / SKILLS phân tích log CI từ Github repo, diễn đàn DevOps hoặc bài báo học thuật để chọn ra kỹ thuật tối ưu nhất (ví dụ: Chain-of-Thought, Few-Shot Prompting) | Vỹ, Vượng, Dương / prompt/SKILLS| [Khảo sát và skill đề xuất](../evidence/E-06/README.md) cho báo cáo `AI_vs_Human_Triage`; chưa kết luận tối ưu qua thực nghiệm |
 | **E-07** | [ ] Thử và đánh giá 3 prompt patterns /SKILLS đã được tìm kiếm ở E-06a: tối đa 3 giả thuyết, dẫn chứng chính xác, 3 bước kiểm tra, nêu mức độ chưa chắc chắn | Vỹ | Prompt và output nguyên bản |
-| **E-08** | [ ] So sánh người và AI theo cùng rubric: root cause, bằng chứng, bước tiếp theo, thời gian, suy diễn/hallucination | Vỹ; Vượng review | Báo cáo `AI_vs_Human_Triage` |
-| **E-09** | [ ] Sửa flake và chạy lại để xác nhận nguyên nhân, không dừng ở phỏng đoán từ log | Vỹ | Commit sửa và run xác nhận |
-| **E-10** | [ ] Rút ra ít nhất **3 failure modes thực tế** của AI và biện pháp kiểm chứng | Vỹ | Ví dụ gắn với output/log thật |
+| **E-08** | [x] So sánh người và AI theo cùng rubric: root cause, bằng chứng, bước tiếp theo, thời gian, suy diễn/hallucination | Vỹ; Vượng review | [Báo cáo AI_vs_Human_Triage](../evidence/E-08/AI_vs_Human_Triage.md); Vượng đã review; thời lượng Vượng 20 phút, Sol 1 phút 30 giây |
+| **E-09** | [x] Sửa flake và chạy lại để xác nhận nguyên nhân, không dừng ở phỏng đoán từ log | Vỹ | [Bản sửa và kiểm chứng local trước/sau](../evidence/E-09/README.md): tái hiện fail, 12/12 lượt sau sửa pass |
+| **E-10** | [x] Đóng theo quyết định nhóm; tiêu chí ban đầu: rút ra ít nhất **3 failure modes thực tế** của AI và biện pháp kiểm chứng | Vỹ | [Kết luận E-10](../evidence/E-10/README.md): chưa quan sát failure chẩn đoán được xác nhận trong ca này; không tính là đã đủ 3 failure modes |
 
 Brief T07 yêu cầu workflow, coverage XML, branch protection, thí nghiệm 10 lần và so sánh AI với người; demo trực tiếp phải dùng cả công cụ truyền thống lẫn AI. :codex-file-citation{path="D:\Workspace\SoftwareTesting\MySeminar\T07_CI-CD_and_Test-Harness_Engineering.docx.md" purpose="source"}
 
@@ -70,7 +85,7 @@ Brief T07 yêu cầu workflow, coverage XML, branch protection, thí nghiệm 10
 
 | Mã Task | Checklist | Người thực hiện | Bằng chứng hoàn thành |
 |:---:|---|---|---|
-| **F-01** | [ ] Viết phần lý thuyết ngắn, đúng trọng tâm: CI/CD, test harness, runner/agent, fixture, cache, coverage, quality gate, flaky test | Dương; Vượng/Vỹ review | Nội dung dùng chung cho guide, báo cáo, slide |
+| **F-01** | [ ] Viết phần lý thuyết ngắn, đúng trọng tâm: CI/CD, test harness, runner/agent, fixture, cache, coverage, quality gate, flaky test | Dương; Vượng/Vỹ review | Nội dung dùng chung cho guide, báo cáo, slide; đã có [phần flaky test](../evidence/F-01/Flakytest/README.md) |
 | **F-02** | [ ] Khảo sát GitHub Actions, Jenkins, GitLab CI và các hướng AI; giải thích chức năng, lúc nên dùng, giới hạn và lý do chọn/bỏ | Vượng; Vỹ viết phần AI | Bảng so sánh có nguồn tham khảo |
 | **F-03** | [ ] Chuẩn bị **ba kịch bản demo** rõ ràng: cài đặt, chức năng cơ bản, luồng phức tạp (cache/branch protection/flaky triage) | Dương điều phối; mỗi owner phụ trách công cụ của mình | Script và kết quả chạy của từng kịch bản |
 | **F-04** | [ ] Viết cách tái áp dụng cho một dự án khác: cần có lệnh test nào, fixture nào, cách đưa vào CI, cách đọc log và kiểm chứng AI | Vỹ; Dương review | Checklist “áp dụng cho dự án mới” |

@@ -1,0 +1,182 @@
+{
+  "participant_zip_sha256": "f9be9f3ef7d2244739a5e576ce2968963ab2621e9972e0f4d30e4e660cba28fd",
+  "source_batch": "docs/evidence/E-03/20261021-b252db4-01",
+  "removed_observation_fields": [
+    "delayMs",
+    "mode",
+    "readWaitMs",
+    "selectedCase"
+  ],
+  "runs": [
+    {
+      "alias": "run-01",
+      "source_run_id": 39623369899,
+      "source_directory": "01-39623369899",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39623369899",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "ad0cf0d914b7bbe178b738d009d3e42c901d9bcc2686deff86275ad395c697d5",
+          "normalized_sha256": "3a6b3369e62e98ec89314719190553e0aa21fe5948e6f3f1509af1c2f46b5307"
+        },
+        "results.json": {
+          "source_sha256": "9dd5ea8b9df992a7693308047fb8992309bc8d88c251ef5844c5bc180ef56951",
+          "normalized_sha256": "35a38b01e2ec35e784d235cbeded73d150e756d1ef7f6bea49e8ec59fc3e69fb"
+        }
+      }
+    },
+    {
+      "alias": "run-02",
+      "source_run_id": 39624265758,
+      "source_directory": "02-39624265758",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39624265758",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "a5f5480f58dc9fe600fa7e374eeb71212175f88b7eb5fb53ac0d670a0023d569",
+          "normalized_sha256": "e63885ac8f018d03a6de889b259bfd0b15d263567457a6b5fd594ed01e160847"
+        },
+        "results.json": {
+          "source_sha256": "c358ef2e77498a355c719bf58a074dc1d08fe9cbfa17295c119581d3be0a67e7",
+          "normalized_sha256": "04eee6aeaa2ebe2cce1e5b04e98dc7555a91f0cc65d13002950addfc14dcf018"
+        }
+      }
+    },
+    {
+      "alias": "run-03",
+      "source_run_id": 39624665367,
+      "source_directory": "03-39624665367",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39624665367",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "f109b7a15b2737aaf2f599df27f5700cf3f575792450e54a1e8c826fc3093238",
+          "normalized_sha256": "8ce7528505489d22682b35be957941dc7cdd1abc3c44a4d168aef414446d4377"
+        },
+        "results.json": {
+          "source_sha256": "990f977490668e0f1a229198f9eb32bf2d6036209f533d11995621eda29bfcb8",
+          "normalized_sha256": "def260209fa1784fdfed9efbd08b625b0a552b6b05e07b9ca9ed88013edfad75"
+        }
+      }
+    },
+    {
+      "alias": "run-04",
+      "source_run_id": 39624963584,
+      "source_directory": "04-39624963584",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39624963584",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "0cd2d1745d2acbd8d61f10543e546fbcfdc3673e43cb5301f182d70aa5a34e5d",
+          "normalized_sha256": "58c0861a8797a637f2c46feed61ee8094802d927b2aa19252052ce56f2956506"
+        },
+        "results.json": {
+          "source_sha256": "aae0a3e6dba158df5303e5984345b82383f75cb896555e64f00d4a8fd07c8660",
+          "normalized_sha256": "bae93024b441697142e02c293a950eb9f5c3a128e2471f45e684316aae4fb82e"
+        }
+      }
+    },
+    {
+      "alias": "run-05",
+      "source_run_id": 39625334520,
+      "source_directory": "05-39625334520",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39625334520",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "a7867904df8fc5c40282a3620f39fb2e52b64dedb7d0df9bf3b205da53495222",
+          "normalized_sha256": "27518ca52c46d6420e0ba97272dcf9b3afe023b5dc84a0f898d05f7a3ea915f0"
+        },
+        "results.json": {
+          "source_sha256": "8f03af1c3a52b867cefdc7d799fb66ecfb327eb32d8dee2206c39f1957f326f1",
+          "normalized_sha256": "2c1ab5a50c91512f6970706bf4a3ab75a0760cec8b59d47034734e05b238bdd4"
+        }
+      }
+    },
+    {
+      "alias": "run-06",
+      "source_run_id": 39625583748,
+      "source_directory": "06-39625583748",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39625583748",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "37dadf00a2aef49b9281ebd4d48929098e2e2b7ba947d7b5d992ba5a5ff3888c",
+          "normalized_sha256": "1da1b42b6b7aa43bbe6f357401e9c237b81d315384633a6171d7b8756a8ab69c"
+        },
+        "results.json": {
+          "source_sha256": "d5aab9f42a71a2373c6ebace9bdc4ec7db5af5863e137c96b047f1853ff51e6c",
+          "normalized_sha256": "5516559276eafe0779c56a93bf2d98112bd8a7f1b0ea00f7667a1dabb1a2dd2a"
+        }
+      }
+    },
+    {
+      "alias": "run-07",
+      "source_run_id": 39625896690,
+      "source_directory": "07-39625896690",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39625896690",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "8a9dfa5888a7813cb0104b2b550e5e3bf90b4c0bc145e8dffc9e4978fe2b4baf",
+          "normalized_sha256": "d57a07437ad2ff3539cf8d44e1e8f65b380cbd524c66b79b6b84ee5e851cc9d3"
+        },
+        "results.json": {
+          "source_sha256": "6051d3708abba0ce40c56ed2be541857a7ce06e9c592e6eac71a7b80f1504cbb",
+          "normalized_sha256": "767bbe4d171279250060263e4c4ef0bd462e06d842cc2bd8e341d00960974433"
+        }
+      }
+    },
+    {
+      "alias": "run-08",
+      "source_run_id": 39626153807,
+      "source_directory": "08-39626153807",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39626153807",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "122548f8ee4453611061cc9a26de6c5c81530335a2ed5903335ec715ecd5791d",
+          "normalized_sha256": "a9b49e44cc9872d410a7a0aae845c764dcdcea41dbb35f8d6d96c6bfda0e0dc8"
+        },
+        "results.json": {
+          "source_sha256": "25fbd05e2c8225e545a44bcb92730c6f2ecb8df7321793a43bff6d1403d9ba0a",
+          "normalized_sha256": "b379401cef625a218bcdda84aaf17aeac17d5eb64bf72fdd550fae6b423c9bec"
+        }
+      }
+    },
+    {
+      "alias": "run-09",
+      "source_run_id": 39629190485,
+      "source_directory": "09-39629190485",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39629190485",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "89265e2d15a026c2bcb7d955874424412032c9e90ff03ee59dba30b1dcff92fd",
+          "normalized_sha256": "906bed664ef01b8160e918313fbe581e76174598623ee0f498af144ea0f904bf"
+        },
+        "results.json": {
+          "source_sha256": "4141e156e7d2897045a218a6e0fdc6beeea9b9e156e27c15c020023342663f58",
+          "normalized_sha256": "2ea9669a55aa8d7dff08cd6777260b9e41f20fdb40bc2e943d0f46054533fddd"
+        }
+      }
+    },
+    {
+      "alias": "run-10",
+      "source_run_id": 39629561358,
+      "source_directory": "10-39629561358",
+      "source_url": "https://github.com/SUT-group10/eshop-sut-group10/actions/runs/39629561358",
+      "source_sha": "b252db4aa9e236b78879dfbbf7b882cdadb8580c",
+      "files": {
+        "console.log": {
+          "source_sha256": "443ae41b4c595703e678cf2ebcfd44261c53e170b7121b4819abcc3391666aa1",
+          "normalized_sha256": "0f0ddc4e4399d8cb0790ac96ff34ef4b47011abac8dc93e61bdbea6d35a0a8a6"
+        },
+        "results.json": {
+          "source_sha256": "4419ace19e84fba64ac581315bd9202b4eea7d3c8f386ae60cd1198bed93357b",
+          "normalized_sha256": "0c8168429c4487498838a2e3718fc56e9138dd5e5f63e217b2088be9782dd6a0"
+        }
+      }
+    }
+  ]
+}

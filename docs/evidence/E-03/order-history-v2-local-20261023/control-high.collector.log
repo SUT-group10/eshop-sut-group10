@@ -1,0 +1,4 @@
+Evidence directory: D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\test-results\order-history\verify-20261022T195808-5adb10\control-high
+run-01: initial=failed final=failed attempts=3 retries=2
+{"planned_runs": 1, "validated_runs": 1, "first_attempt_pass": 0, "recovered_after_retry": 0, "final_fail": 1, "total_attempts": 3, "failed_attempts": 3, "evidence_errors": 0}
+Batch complete; exit=1. Share analysis-input.zip only.

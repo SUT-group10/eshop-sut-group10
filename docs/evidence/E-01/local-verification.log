@@ -1,0 +1,634 @@
+E-01 local verification; 60 or 160 ms delay; no CI run
+timestamp: 2026-10-19T06:10:05.2252073+00:00
+base SHA: b9c76a6340bdb10324f1f382f067029e40b84888
+source state: uncommitted changes; apply source.patch to base SHA
+source.patch SHA256: F895A0D0581D8008DA6BA370AE0DE59CDD6C52586FC20F727780741E64EFEC72
+test file SHA256: D15320CCFD50C445DFA26FA34037A887391CC3F70462A9448CB730615A2B6FE6
+node: v24.14.0
+npm: 11.21.0
+independent Jest processes; one attempt per process; no retries
+
+=== diagnostic mode=fast ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:07.5239504+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":67.443,"addCompletedMs":96.082,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"fast","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":67.443,"addCompletedMs":96.082,"readSentMs":100.114,"readCompletedMs":124.256,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        2.482 s
+Ran all test suites.
+
+exit: 0; durationMs: 4004
+
+=== diagnostic mode=slow ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:11.5610373+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"slow","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":115.945,"readCompletedMs":133.308,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":115.945,"readCompletedMs":133.308,"addSentMs":162.297,"addCompletedMs":178.336,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.761 s, estimated 3 s
+Ran all test suites.
+
+exit: 1; durationMs: 3748
+
+=== sampled attempt=1 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:15.3132601+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":72.558,"addCompletedMs":92.055,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":72.558,"addCompletedMs":92.055,"readSentMs":104.032,"readCompletedMs":121.759,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.522 s, estimated 2 s
+Ran all test suites.
+
+exit: 0; durationMs: 2998
+
+=== sampled attempt=2 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:18.3150502+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":102.422,"readCompletedMs":122.302,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":102.422,"readCompletedMs":122.302,"addSentMs":164.37,"addCompletedMs":180.899,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.497 s, estimated 2 s
+Ran all test suites.
+
+exit: 1; durationMs: 2909
+
+=== sampled attempt=3 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:21.2269159+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":74.843,"addCompletedMs":92.576,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":74.843,"addCompletedMs":92.576,"readSentMs":105.229,"readCompletedMs":118.754,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.351 s, estimated 2 s
+Ran all test suites.
+
+exit: 0; durationMs: 2738
+
+=== sampled attempt=4 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:23.9675018+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":102.416,"readCompletedMs":126.786,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":102.416,"readCompletedMs":126.786,"addSentMs":164.577,"addCompletedMs":180.057,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        3.566 s
+Ran all test suites.
+
+exit: 1; durationMs: 4968
+
+=== sampled attempt=5 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:28.9373781+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":76.113,"addCompletedMs":94.019,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":76.113,"addCompletedMs":94.019,"readSentMs":100.216,"readCompletedMs":121.415,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.41 s, estimated 2 s
+Ran all test suites.
+
+exit: 0; durationMs: 2769
+
+=== sampled attempt=6 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:31.7084358+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 add completed {"addSentMs":75.134,"addCompletedMs":90.792,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"fast","delayMs":60,"readWaitMs":100,"addSentMs":75.134,"addCompletedMs":90.792,"readSentMs":104.939,"readCompletedMs":118.421,"httpStatus":200,"cart":[{"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1,"quantity":1}]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.349 s, estimated 2 s
+Ran all test suites.
+
+exit: 0; durationMs: 2661
+
+=== sampled attempt=7 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:34.3716583+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":114.014,"readCompletedMs":129.855,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":114.014,"readCompletedMs":129.855,"addSentMs":161.971,"addCompletedMs":176.696,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.368 s, estimated 2 s
+Ran all test suites.
+
+exit: 1; durationMs: 2655
+
+=== sampled attempt=8 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:37.0287506+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":112.263,"readCompletedMs":131.249,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":112.263,"readCompletedMs":131.249,"addSentMs":175.687,"addCompletedMs":187.898,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.391 s, estimated 2 s
+Ran all test suites.
+
+exit: 1; durationMs: 2668
+
+=== sampled attempt=9 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:39.6987273+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":104.71,"readCompletedMs":122.704,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":104.71,"readCompletedMs":122.704,"addSentMs":166.429,"addCompletedMs":181.2,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.439 s, estimated 2 s
+Ran all test suites.
+
+exit: 1; durationMs: 2843
+
+=== sampled attempt=10 ===
+command: npm run test:flaky -- --detectOpenHandles
+started: 2026-10-19T06:10:42.5436640+00:00
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --detectOpenHandles
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":105.129,"readCompletedMs":120.564,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":105.129,"readCompletedMs":120.564,"addSentMs":166.178,"addCompletedMs":178.858,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+      51 |     }));
+      52 |     expect(cart.status).toBe(200);
+    > 53 |     expect(cart.body).toHaveLength(1);
+         |                       ^
+      54 |     expect(cart.body[0]).toMatchObject({ id: product.id, quantity: 1 });
+      55 |   } finally {
+      56 |     // Even a failed assertion must drain A before closing its isolated fixture.
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        1.279 s, estimated 2 s
+Ran all test suites.
+
+exit: 1; durationMs: 2607
+
+=== normal test discovery ===
+command: npm test -- --listTests
+started: 2026-10-19T06:10:45.1573502+00:00
+
+> backend@1.0.0 test
+> jest --runInBand --listTests
+
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\api\cart-orders.test.js
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\api\coupons.test.js
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\api\catalog-auth.test.js
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\harness\isolation.test.js
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\smoke\purchase.test.js
+D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\tests\unit\authentication.test.js
+
+exit: 0; durationMs: 1169
+
+=== baseline isolation verification ===
+command: npm run test:isolation
+started: 2026-10-19T06:10:46.3286340+00:00
+
+> backend@1.0.0 test:isolation
+> node scripts/verify-isolation.cjs
+
+B-03: verify repeated runs and randomized test order
+Production database SHA256 before: c63f00544180ba1fbb1427a9b9dd3f1784842698809972f33ce90482e7420ba6
+seed=101 tests=39 pass=29 fail=10 jestExit=1 stable=true expectedFailures=true openHandles=0
+seed=202 tests=39 pass=29 fail=10 jestExit=1 stable=true expectedFailures=true openHandles=0
+seed=303 tests=39 pass=29 fail=10 jestExit=1 stable=true expectedFailures=true openHandles=0
+Production database SHA256 after: c63f00544180ba1fbb1427a9b9dd3f1784842698809972f33ce90482e7420ba6
+B-03 isolation verification: PASS
+
+exit: 0; durationMs: 23638
+
+=== lint ===
+command: npm run lint
+started: 2026-10-19T06:11:09.9697394+00:00
+
+> backend@1.0.0 lint
+> eslint . --max-warnings=0
+
+
+exit: 0; durationMs: 2759
+
+=== build ===
+command: npm run build
+started: 2026-10-19T06:11:12.7304075+00:00
+
+> backend@1.0.0 build
+> node scripts/check-syntax.cjs
+
+PASS database.js
+PASS eslint.config.cjs
+PASS jest.config.cjs
+PASS jest.flaky.config.cjs
+PASS scripts\check-syntax.cjs
+PASS scripts\verify-isolation.cjs
+PASS server.js
+PASS test_profile.js
+PASS tests\api\cart-orders.test.js
+PASS tests\api\catalog-auth.test.js
+PASS tests\api\coupons.test.js
+PASS tests\experiments\cart-timing.flaky.js
+PASS tests\harness\isolation.test.js
+PASS tests\helpers\harness.js
+PASS tests\smoke\purchase.test.js
+PASS tests\unit\authentication.test.js
+Source syntax validation: 16 files, PASS
+
+exit: 0; durationMs: 2081
+
+verification summary: {"fastExit":0,"slowExit":1,"sampledPass":4,"sampledFail":6,"sampledExits":[0,1,0,1,0,0,1,1,1,1],"discoveryExit":0,"isolationExit":0,"lintExit":0,"buildExit":0,"databaseUnchanged":true,"databaseBefore":"C63F00544180BA1FBB1427A9B9DD3F1784842698809972F33CE90482E7420BA6","databaseAfter":"C63F00544180BA1FBB1427A9B9DD3F1784842698809972F33CE90482E7420BA6"}

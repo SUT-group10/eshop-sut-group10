@@ -1,0 +1,13 @@
+Evidence directory: D:\Workspace\SoftwareTesting\eshop-sut-group10\backend\test-results\order-history\verify-20261022T195808-5adb10\awaited-no-retry
+run-01: initial=passed final=passed attempts=1 retries=0
+run-02: initial=passed final=passed attempts=1 retries=0
+run-03: initial=passed final=passed attempts=1 retries=0
+run-04: initial=passed final=passed attempts=1 retries=0
+run-05: initial=passed final=passed attempts=1 retries=0
+run-06: initial=passed final=passed attempts=1 retries=0
+run-07: initial=passed final=passed attempts=1 retries=0
+run-08: initial=passed final=passed attempts=1 retries=0
+run-09: initial=passed final=passed attempts=1 retries=0
+run-10: initial=passed final=passed attempts=1 retries=0
+{"planned_runs": 10, "validated_runs": 10, "first_attempt_pass": 10, "recovered_after_retry": 0, "final_fail": 0, "total_attempts": 10, "failed_attempts": 0, "evidence_errors": 0}
+Batch complete; exit=0. Share analysis-input.zip only.

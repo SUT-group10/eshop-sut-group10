@@ -1,5 +1,9 @@
 # Bộ kiểm thử và hướng dẫn chạy EShop — B-02–B-05
 
+Thí nghiệm flaky hiện hành là **v2 — order history**, chạy riêng bằng `npm run experiment:orders -- --runs 10 --retries 2` từ `backend`; xem [hướng dẫn](experiments/README.md), [protocol v2](../../docs/experiments/order-history-protocol.md) và [bằng chứng local](../../docs/evidence/E-03/order-history-v2-local-20261023/README.md). `npm run test:flaky` hiện chọn test v2 để chạy trực tiếp một tiến trình Jest. Experiment không nằm trong bộ test nghiệp vụ bên dưới; số test của bộ chính không tăng vì thêm v2.
+
+Các kết quả cart, gói E-05 và so sánh Vượng/Sol đã lưu thuộc **v1**. V2 đã có kiểm chứng local; kết quả CI và phân tích người–AI v2 sẽ được lưu riêng khi thực hiện.
+
 ## Phạm vi và lý do chọn
 
 Bộ test gồm ba tầng, với expected result lấy từ [đặc tả nghiệp vụ](../../README.md):
@@ -155,6 +159,8 @@ Coverage đo `server.js` và `database.js`, bao gồm cả code chưa được t
 - `coverage/cobertura-coverage.xml`: Cobertura XML để hệ thống CI đọc/upload.
 - `coverage/coverage-summary.json`: số liệu máy đọc được cho badge/tổng hợp.
 - Bảng summary trong terminal/log.
+
+`npm run test:ci` còn dùng reporter `jest-junit` để sinh `test-results/junit.xml`, bên cạnh reporter terminal và coverage. File này cho phép Jenkins hiển thị từng test, số pass/fail và lỗi assertion trên giao diện Test Results; nó không thay đổi phạm vi test hoặc exit code. Xem [hướng dẫn báo cáo Jenkins](../../docs/jenkins/reports.md).
 
 Các file trong `coverage/` là output tự sinh, được Git ignore. Muốn tái lập trên clone sạch hoặc thu artefact CI, dùng:
 

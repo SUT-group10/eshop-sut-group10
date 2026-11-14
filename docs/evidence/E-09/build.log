@@ -1,0 +1,21 @@
+
+> backend@1.0.0 build
+> node scripts/check-syntax.cjs
+
+PASS database.js
+PASS eslint.config.cjs
+PASS jest.config.cjs
+PASS jest.flaky.config.cjs
+PASS scripts\check-syntax.cjs
+PASS scripts\verify-isolation.cjs
+PASS server.js
+PASS test_profile.js
+PASS tests\api\cart-orders.test.js
+PASS tests\api\catalog-auth.test.js
+PASS tests\api\coupons.test.js
+PASS tests\experiments\cart-timing.flaky.js
+PASS tests\harness\isolation.test.js
+PASS tests\helpers\harness.js
+PASS tests\smoke\purchase.test.js
+PASS tests\unit\authentication.test.js
+Source syntax validation: 16 files, PASS

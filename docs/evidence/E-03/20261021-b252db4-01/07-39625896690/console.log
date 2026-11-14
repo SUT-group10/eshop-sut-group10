@@ -1,0 +1,51 @@
+
+> backend@1.0.0 test:flaky
+> jest --config jest.flaky.config.cjs --runInBand --json --outputFile=test-results/flaky/results.json
+
+  console.log
+    Database initialized and seeded (Phase 2).
+
+      at Database.log (database.js:113:17)
+
+  console.log
+    Connected to database
+
+      at Database.log (database.js:9:17)
+
+  console.info
+    E-01 observation {"mode":"sampled","selectedCase":"slow","delayMs":160,"readWaitMs":100,"readSentMs":100.521,"readCompletedMs":106.37,"httpStatus":200,"cart":[]}
+
+      at Object.info (tests/experiments/cart-timing.flaky.js:47:13)
+
+  console.info
+    E-01 add completed {"readSentMs":100.521,"readCompletedMs":106.37,"addSentMs":159.552,"addCompletedMs":163.068,"httpStatus":200}
+
+      at info (tests/experiments/cart-timing.flaky.js:37:15)
+
+FAIL tests/experiments/cart-timing.flaky.js
+  ✕ E-01 cart contains the product after a fixed wait (injected timing flake) (362 ms)
+
+  ● E-01 cart contains the product after a fixed wait (injected timing flake)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 1
+    Received length: 0
+    Received array:  []
+
+    [0m [90m 51 |[39m     }))[33m;[39m
+     [90m 52 |[39m     expect(cart[33m.[39mstatus)[33m.[39mtoBe([35m200[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m 53 |[39m     expect(cart[33m.[39mbody)[33m.[39mtoHaveLength([35m1[39m)[33m;[39m
+     [90m    |[39m                       [31m[1m^[22m[39m
+     [90m 54 |[39m     expect(cart[33m.[39mbody[[35m0[39m])[33m.[39mtoMatchObject({ id[33m:[39m product[33m.[39mid[33m,[39m quantity[33m:[39m [35m1[39m })[33m;[39m
+     [90m 55 |[39m   } [36mfinally[39m {
+     [90m 56 |[39m     [90m// Even a failed assertion must drain A before closing its isolated fixture.[39m[0m
+
+      at Object.toHaveLength (tests/experiments/cart-timing.flaky.js:53:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        0.815 s
+Ran all test suites.
+Test results written to: test-results/flaky/results.json

@@ -1,0 +1,60 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 1,
+  "numPassedTests": 1,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 1,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1792596434764,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 298,
+          "failing": false,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Cart contains the added product",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 5,
+          "retryMessages": [],
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Cart contains the added product",
+          "startAt": 1792596435207
+        }
+      ],
+      "endTime": 1792596435507,
+      "message": "",
+      "name": "<workspace>/backend/tests/api/cart.test.js",
+      "startTime": 1792596434894,
+      "status": "passed",
+      "summary": ""
+    }
+  ],
+  "wasInterrupted": false
+}
