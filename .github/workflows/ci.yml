@@ -112,7 +112,7 @@ jobs:
     name: Build and Push Docker Image
     needs: quality
     # Chỉ build image khi code được push vào nhánh main (merge PR)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request' # && github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
 
     steps:
