@@ -145,6 +145,9 @@ jobs:
     # Rất quan trọng: Trỏ trực tiếp về Self-hosted runner (máy Windows của bạn)
     runs-on: self-hosted
     environment: staging
+    defaults:
+      run:
+        working-directory: .
 
     steps:
       - name: Log in to GitHub Container Registry
