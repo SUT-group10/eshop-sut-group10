@@ -132,41 +132,46 @@ jobs:
           context: ./backend
           push: true
           # Gắn tag image theo tên dự án và mã SHA của commit để định danh tuyệt đối
-          tags: ghcr.io/${{ github.repository_owner }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ github.repository_owner }}/eshop-backend:latest
+          tags: ghcr.io/${{ env.OWNER_LC }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ env.OWNER_LC }}/eshop-backend:latest
   # Khâu 2: Continuous Delivery - Triển khai lên Staging
   deploy_staging:
-    name: Deploy to Staging VPS
+    name: Deploy to Local Windows Runner
     needs: build_image
-    runs-on: ubuntu-22.04
+    # Rất quan trọng: Trỏ trực tiếp về Self-hosted runner (máy Windows của bạn)
+    runs-on: self-hosted
     environment: staging
 
     steps:
-      - name: Execute Remote SSH Commands
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # 1. Server tự đăng nhập vào GHCR (dùng chính token của luồng chạy)
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Log in to GitHub Container Registry
+        shell: pwsh
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Pull and Run Docker Container on Windows
+        shell: pwsh
+        run: |
+          # 1. Xử lý lỗi chữ hoa/thường: Chuyển đổi tên owner sang chữ thường bằng PowerShell
+          $OWNER_LC = "${{ github.repository_owner }}".ToLower()
+          
+          # 2. Cập nhật lại biến IMAGE_URL với chuỗi đã được viết thường
+          $IMAGE_URL = "ghcr.io/$OWNER_LC/eshop-backend:${{ github.sha }}"
+          
+          # Tải Image mới nhất từ GHCR về Docker Desktop
+          docker pull $IMAGE_URL
+          
+          # Dừng và xóa container cũ (2>$null giúp PowerShell bỏ qua lỗi nếu container chưa tồn tại)
+          docker stop eshop-backend-staging 2>$null
+          docker rm eshop-backend-staging 2>$null
+          
+          # Khởi chạy container mới (dùng dấu ` để xuống dòng trong PowerShell)
+          # Lưu ý: Port backend EShop mặc định là 3000
+          docker run -d `
+            --name eshop-backend-staging `
+            --restart unless-stopped `
+            -p 3000:3000 `
+            -e NODE_ENV="staging" `
+            -e DATABASE_URL="${{ secrets.STAGING_DATABASE_URL }}" `
+            $IMAGE_URL
             
-            # 2. Tải Image bất biến vừa được build
-            IMAGE_URL="ghcr.io/${{ github.repository_owner }}/eshop-backend:${{ github.sha }}"
-            docker pull $IMAGE_URL
-            
-            # 3. Chuyển đổi trạng thái Container (Zero-downtime cơ bản)
-            docker stop eshop-backend-staging || true
-            docker rm eshop-backend-staging || true
-            
-            # 4. Khởi động lại hệ thống với cấu hình nạp từ GitHub Secrets
-            docker run -d \
-              --name eshop-backend-staging \
-              --restart unless-stopped \
-              -p 8080:8080 \
-              -e NODE_ENV="staging" \
-              -e DATABASE_URL="${{ secrets.STAGING_DATABASE_URL }}" \
-              $IMAGE_URL
-              
-            # 5. Dọn dẹp cache image cũ để giải phóng dung lượng ổ cứng
-            docker image prune -af
+          # Dọn dẹp image cũ để tránh đầy ổ cứng
+          docker image prune -af
