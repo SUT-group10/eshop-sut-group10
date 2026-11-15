@@ -51,7 +51,7 @@ app.post("/api/login", (req, res) => {
       const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY);
       res.json({ message: "Login successful", token, user });
     } else {
-      const newAttempts = user.login_attempts + 2;
+      const newAttempts = user.login_attempts + 1;
       let lockedUntil = null;
       if (newAttempts >= 3) {
         lockedUntil = new Date(Date.now() + 180000).toISOString();
@@ -59,8 +59,11 @@ app.post("/api/login", (req, res) => {
       db.run(
         "UPDATE users SET login_attempts = ?, locked_until = ? WHERE id = ?",
         [newAttempts, lockedUntil, user.id],
+        (updateError) => {
+          if (updateError) return res.status(500).json({ error: updateError.message });
+          res.status(401).json({ error: "Invalid email or password" });
+        },
       );
-      res.status(401).json({ error: "Invalid email or password" });
     }
   });
 });
@@ -107,6 +110,13 @@ const authenticateToken = (req, res, next) => {
     req.user = user;
     next();
   });
+};
+
+const requireAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  next();
 };
 
 app.get("/api/users/me", authenticateToken, (req, res) => {
@@ -290,20 +300,49 @@ app.get("/api/cart", authenticateToken, (req, res) => {
 app.post("/api/cart", authenticateToken, (req, res) => {
   const userId = req.user.id;
   if (!userCarts[userId]) userCarts[userId] = [];
-  userCarts[userId].push(req.body);
+  const productId = req.body.id || req.body.product_id;
+  const existingItem = userCarts[userId].find(
+    (item) => (item.id || item.product_id) === productId,
+  );
+  if (existingItem) {
+    existingItem.quantity += req.body.quantity || 1;
+  } else {
+    userCarts[userId].push({ ...req.body, quantity: req.body.quantity || 1 });
+  }
   res.json({ message: "Added to cart" });
 });
 
 app.post("/api/checkout", authenticateToken, (req, res) => {
   const userId = req.user.id;
-  const { total_amount, shipping_address } = req.body;
+  const { shipping_address } = req.body;
+  const cart = userCarts[userId] || [];
+  const productIds = cart.map((item) => item.id || item.product_id);
+  const placeholders = productIds.map(() => "?").join(",");
 
-  db.run(
-    "INSERT INTO orders (user_id, total_amount, status, shipping_address) VALUES (?, ?, ?, ?)",
-    [userId, total_amount, "pending", shipping_address],
-    function (err) {
+  if (productIds.length === 0) {
+    return res.status(400).json({ error: "Cart is empty" });
+  }
+
+  db.all(
+    `SELECT id, price FROM products WHERE id IN (${placeholders})`,
+    productIds,
+    (err, products) => {
       if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Checkout successful", orderId: this.lastID });
+      const prices = new Map(products.map((product) => [product.id, product.price]));
+      const total_amount = cart.reduce(
+        (total, item) => total + (prices.get(item.id || item.product_id) || 0) * item.quantity,
+        0,
+      );
+
+      db.run(
+        "INSERT INTO orders (user_id, total_amount, status, shipping_address) VALUES (?, ?, ?, ?)",
+        [userId, total_amount, "pending", shipping_address],
+        function (err) {
+          if (err) return res.status(500).json({ error: err.message });
+          userCarts[userId] = [];
+          res.json({ message: "Checkout successful", orderId: this.lastID });
+        },
+      );
     },
   );
 });
@@ -325,8 +364,7 @@ app.put("/api/orders/:id/cancel", authenticateToken, (req, res) => {
     (err, order) => {
       if (!order) return res.status(404).json({ error: "Order not found" });
 
-      // Lẽ ra phải là: if (order.status !== 'pending' && order.status !== 'confirmed')
-      if (order.status === "delivered" || order.status === "canceled") {
+      if (order.status !== "pending" && order.status !== "confirmed") {
         return res.status(400).json({ error: "Cannot cancel this order." });
       }
 
@@ -360,8 +398,9 @@ app.get("/api/coupons", authenticateToken, (req, res) => {
 });
 
 // POST apply-coupon
-app.post("/api/apply-coupon", (req, res) => {
-  const { code, total_amount, user_id } = req.body;
+app.post("/api/apply-coupon", authenticateToken, (req, res) => {
+  const { code, total_amount } = req.body;
+  const user_id = req.user.id;
 
   if (!code)
     return res.status(400).json({ error: "Vui lòng nhập mã giảm giá" });
@@ -376,7 +415,7 @@ app.post("/api/apply-coupon", (req, res) => {
           .json({ error: "Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa" });
       }
 
-      if (total_amount > coupon.min_order_amount) {
+      if (total_amount >= coupon.min_order_amount) {
         const now = new Date();
         const expiry = new Date(coupon.expired_at);
         if (expiry < now) {
@@ -396,9 +435,7 @@ app.post("/api/apply-coupon", (req, res) => {
 
               let discount_amount;
               if (coupon.type === "percent") {
-                discount_amount = Math.floor(
-                  total_amount * (1 - coupon.discount_value),
-                );
+                discount_amount = Math.floor(total_amount * coupon.discount_value / 100);
               } else {
                 discount_amount = coupon.discount_value;
               }
@@ -416,9 +453,7 @@ app.post("/api/apply-coupon", (req, res) => {
         } else {
           let discount_amount;
           if (coupon.type === "percent") {
-            discount_amount = Math.floor(
-              total_amount * (1 - coupon.discount_value),
-            );
+            discount_amount = Math.floor(total_amount * coupon.discount_value / 100);
           } else {
             discount_amount = coupon.discount_value;
           }
@@ -454,7 +489,7 @@ app.post("/api/coupon-usage", authenticateToken, (req, res) => {
 });
 
 // ADMIN: CRUD Coupons
-app.post("/api/admin/coupons", authenticateToken, (req, res) => {
+app.post("/api/admin/coupons", authenticateToken, requireAdmin, (req, res) => {
   const {
     code,
     type,
@@ -480,7 +515,7 @@ app.post("/api/admin/coupons", authenticateToken, (req, res) => {
   );
 });
 
-app.delete("/api/admin/coupons/:id", authenticateToken, (req, res) => {
+app.delete("/api/admin/coupons/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run("DELETE FROM coupons WHERE id = ?", [req.params.id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: "Coupon deleted" });
@@ -491,7 +526,7 @@ app.delete("/api/admin/coupons/:id", authenticateToken, (req, res) => {
 // ADMIN APIS
 // ==========================================
 
-app.get("/api/admin/users", authenticateToken, (req, res) => {
+app.get("/api/admin/users", authenticateToken, requireAdmin, (req, res) => {
   db.all(
     "SELECT id, name, email, role, login_attempts, locked_until, shipping_address FROM users",
     [],
@@ -501,13 +536,13 @@ app.get("/api/admin/users", authenticateToken, (req, res) => {
   );
 });
 
-app.delete("/api/admin/users/:id", authenticateToken, (req, res) => {
+app.delete("/api/admin/users/:id", authenticateToken, requireAdmin, (req, res) => {
   db.run("DELETE FROM users WHERE id = ?", [req.params.id], function () {
     res.json({ message: "User deleted" });
   });
 });
 
-app.get("/api/admin/orders", authenticateToken, (req, res) => {
+app.get("/api/admin/orders", authenticateToken, requireAdmin, (req, res) => {
   db.all(
     `
         SELECT orders.*, users.name as user_name 
@@ -522,7 +557,7 @@ app.get("/api/admin/orders", authenticateToken, (req, res) => {
   );
 });
 
-app.put("/api/admin/orders/:id/status", authenticateToken, (req, res) => {
+app.put("/api/admin/orders/:id/status", authenticateToken, requireAdmin, (req, res) => {
   const { status } = req.body; // pending, confirmed, shipping, delivered, canceled
 
   db.get(
@@ -545,9 +580,6 @@ app.put("/api/admin/orders/:id/status", authenticateToken, (req, res) => {
       )
         isValidTransition = true;
       if (currentStatus === "shipping" && status === "delivered")
-        isValidTransition = true;
-
-      if (currentStatus === "canceled" && status === "delivered")
         isValidTransition = true;
 
       if (!isValidTransition) {

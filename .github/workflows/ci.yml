@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 concurrency:
   group: backend-ci-${{ github.workflow }}-${{ github.ref }}
@@ -106,3 +107,77 @@ jobs:
             backend/coverage/cobertura-coverage.xml
             backend/coverage/coverage-summary.json
             backend/test-results/jest-report.json
+  # Khâu 1: Build Artifact thành Docker Image
+  build_image:
+    name: Build and Push Docker Image
+    needs: quality
+    # Chỉ build image khi code được push vào nhánh main (merge PR)
+    if: github.event_name == 'pull_request' # && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+         
+      - name: Set lowercase repository owner
+       # Đặt ID để các step sau có thể gọi chính xác đầu ra của step này
+        id: format_owner
+        run: echo "owner_lc=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+      
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          # Gọi lại giá trị owner_lc từ output của step có id là format_owner
+          tags: ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:${{ github.sha }}, ghcr.io/${{ steps.format_owner.outputs.owner_lc }}/eshop-backend:latest
+  # Khâu 2: Continuous Delivery - Triển khai lên VPS Azure (Ubuntu 24.04)
+  deploy_staging:
+    name: Deploy to Azure Ubuntu VPS
+    needs: build_image
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-22.04
+    environment: staging
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Deploy Docker Container via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            # 1. Đăng nhập vào GitHub Container Registry từ máy chủ Azure
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            # 2. Chuyển đổi tên owner sang chữ thường (chuẩn Bash trên Ubuntu)
+            OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+            IMAGE_URL="ghcr.io/$OWNER_LC/eshop-backend:${{ github.sha }}"
+
+            # 3. Tải Docker Image mới nhất về VPS
+            docker pull $IMAGE_URL
+
+            # 4. Dừng và xóa container cũ nếu đang chạy
+            docker stop eshop-backend-staging || true
+            docker rm eshop-backend-staging || true
+
+            # 5. Khởi chạy container mới trên cổng 3000
+            docker run -d \
+              --name eshop-backend-staging \
+              --restart unless-stopped \
+              -p 3000:3000 \
+              -e NODE_ENV="staging" \
+              $IMAGE_URL
+
+            # 6. Dọn dẹp các image cũ để tiết kiệm dung lượng ổ cứng VPS
+            docker image prune -af
